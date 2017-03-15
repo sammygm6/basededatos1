@@ -1690,6 +1690,8 @@ public class frame extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_PROVEEDORMouseExited
 
     private void jl_CONDUCTORMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_CONDUCTORMouseClicked
+        jd_Conductor.setTitle("Conductor");
+        jd_Conductor.pack();
         jd_Conductor.setModal(true);
         jd_Conductor.setVisible(true);
     }//GEN-LAST:event_jl_CONDUCTORMouseClicked
@@ -1700,16 +1702,22 @@ public class frame extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_FACTURAMouseClicked
 
     private void jl_VEHICULOMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_VEHICULOMouseClicked
+        jd_Vehiculo.setTitle("Vehiculo");
+        jd_Vehiculo.pack();
         jd_Vehiculo.setModal(true);
         jd_Vehiculo.setVisible(true);
     }//GEN-LAST:event_jl_VEHICULOMouseClicked
 
     private void jl_CLIENTEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_CLIENTEMouseClicked
+        jd_Cliente.setTitle("Cliente");
+        jd_Cliente.pack();
         jd_Cliente.setModal(true);
         jd_Cliente.setVisible(true);
     }//GEN-LAST:event_jl_CLIENTEMouseClicked
 
     private void jl_PROVEEDORMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_PROVEEDORMouseClicked
+        jd_Proveedor.setTitle("Proveedor");
+        jd_Proveedor.pack();
         jd_Proveedor.setModal(true);
         jd_Proveedor.setVisible(true);
     }//GEN-LAST:event_jl_PROVEEDORMouseClicked
