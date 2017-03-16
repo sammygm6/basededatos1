@@ -427,6 +427,11 @@ public class frame extends javax.swing.JFrame {
                 cb_editar_proveedorItemStateChanged(evt);
             }
         });
+        cb_editar_proveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_editar_proveedorActionPerformed(evt);
+            }
+        });
         jPanel9.add(cb_editar_proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 43, 227, -1));
 
         jLabel74.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
@@ -544,6 +549,11 @@ public class frame extends javax.swing.JFrame {
         jButton9.setForeground(new java.awt.Color(0, 153, 153));
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/07_plus-64.png"))); // NOI18N
         jButton9.setText("Crear");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
         jPanel12.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 400, -1, -1));
 
         jLabel91.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dark-grey-background-pattern-i7.jpg"))); // NOI18N
@@ -1892,25 +1902,32 @@ public class frame extends javax.swing.JFrame {
                     proveedores.get(i).getEmail()});
             }
             tabla_proveedores.setModel(tmodel);
+        } else if (jTabbedPane3.getSelectedIndex() == 2) {
+            tf_nuevo_proveedor_id2.setText(Integer.toString(proveedores.get(proveedores.size() - 1).getId_Proveedor() + 1));
         }
     }//GEN-LAST:event_jTabbedPane3MouseClicked
 
     private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
         // TODO add your handling code here:
+        for (int i = 0; i < proveedores.size(); i++) {
+            if (proveedores.get(i).getNombre().equals(cb_borrar_proveedor4.getSelectedItem())) {
+                id_Proveedor = proveedores.get(i).getId_Proveedor();
+            }
+        }
         Conn cn = new Conn();
         try {
             Connection cc = cn.mkConnRe();// Obtiene la conexion
             String sql = "";
-            sql = "DELETE proveedor "
-                    + "WHERE idProveedor=" + id_Proveedor;
+            sql = "DELETE FROM proveedor "
+                    + "WHERE idProveedor=?";
             PreparedStatement pst = cc.prepareStatement(sql);
-            pst.setString(1, tf_editar_proveedor_direccion.getText());
+            pst.setInt(1, id_Proveedor);
             int nu = pst.executeUpdate();
             if (nu > 0) {
-                JOptionPane.showMessageDialog(rootPane, "Proveedor Actualizado con exito!");
+                JOptionPane.showMessageDialog(rootPane, "Proveedor Eliminado con exito!");
                 for (int i = 0; i < proveedores.size(); i++) {
                     if (proveedores.get(i).getId_Proveedor() == id_Proveedor) {
-                        
+                        proveedores.remove(i);
                     }
                 }
             }
@@ -1919,7 +1936,95 @@ public class frame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
         } catch (Exception ex) {
         }
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < proveedores.size(); i++) {
+            modelo.addElement(proveedores.get(i).getNombre());
+        }
+        cb_borrar_proveedor4.setModel(modelo);
+        cb_editar_proveedor.setModel(modelo);
+        DefaultTableModel tmodel = (DefaultTableModel) tabla_proveedores.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < proveedores.size(); i++) {
+            tmodel.addRow(new Object[]{Integer.toString(proveedores.get(i).getId_Proveedor()),
+                proveedores.get(i).getNombre(),
+                proveedores.get(i).getDireccion(),
+                proveedores.get(i).getPais(),
+                proveedores.get(i).getTelefono(),
+                proveedores.get(i).getEmail()});
+        }
+        tabla_proveedores.setModel(tmodel);
     }//GEN-LAST:event_jButton24ActionPerformed
+
+    private void cb_editar_proveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_editar_proveedorActionPerformed
+        // TODO add your handling code here:
+        for (int i = 0; i < proveedores.size(); i++) {
+            if (proveedores.get(i).getNombre().equals(cb_editar_proveedor.getSelectedItem().toString())) {
+                id_Proveedor = proveedores.get(i).getId_Proveedor();
+                tf_editar_proveedor_id.setText(Integer.toString(proveedores.get(i).getId_Proveedor()));
+                tf_editar_proveedor_nombre.setText(proveedores.get(i).getNombre());
+                tf_editar_proveedor_direccion.setText(proveedores.get(i).getDireccion());
+                tf_editar_proveedor_pais.setText(proveedores.get(i).getPais());
+                tf_editar_proveedor_telefono.setText(proveedores.get(i).getTelefono());
+                tf_editar_proveedor_correo2.setText(proveedores.get(i).getEmail());
+            }
+        }
+    }//GEN-LAST:event_cb_editar_proveedorActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "INSERT INTO proveedor (idProveedor, direccion, telefono, nombre, pais, email)"
+                    + "VALUES (?,?,?,?,?,?)";
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setInt(1, Integer.parseInt(tf_nuevo_proveedor_id2.getText()));
+            pst.setString(2, tf_nuevo_proveedor_direccion2.getText());
+            pst.setString(3, tf_nuevo_proveedor_telefono2.getText());
+            pst.setString(4, tf_nuevo_proveedor_nombre2.getText());
+            pst.setString(5, tf_nuevo_proveedor_pais2.getText());
+            pst.setString(6, tf_nuevo_proveedor_correo2.getText());
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Proveedor Creadoo con exito!");
+                Proveedor p = new Proveedor(Integer.parseInt(tf_nuevo_proveedor_id2.getText()),
+                        tf_nuevo_proveedor_direccion2.getText(),
+                        tf_nuevo_proveedor_telefono2.getText(),
+                        tf_nuevo_proveedor_nombre2.getText(),
+                        tf_nuevo_proveedor_pais2.getText(),
+                        tf_nuevo_proveedor_correo2.getText());
+                proveedores.add(p);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+        } catch (Exception ex) {
+        }
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < proveedores.size(); i++) {
+            modelo.addElement(proveedores.get(i).getNombre());
+        }
+        cb_borrar_proveedor4.setModel(modelo);
+        cb_editar_proveedor.setModel(modelo);
+        DefaultTableModel tmodel = (DefaultTableModel) tabla_proveedores.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < proveedores.size(); i++) {
+            tmodel.addRow(new Object[]{Integer.toString(proveedores.get(i).getId_Proveedor()),
+                proveedores.get(i).getNombre(),
+                proveedores.get(i).getDireccion(),
+                proveedores.get(i).getPais(),
+                proveedores.get(i).getTelefono(),
+                proveedores.get(i).getEmail()});
+        }
+        tabla_proveedores.setModel(tmodel);
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
