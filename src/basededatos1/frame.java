@@ -53,7 +53,7 @@ public class frame extends javax.swing.JFrame {
                 while (rs.next()) {
                     Proveedor p = new Proveedor(Integer.parseInt(rs.getString("idProveedor")),
                             rs.getString("direccion"), rs.getString("telefono"), rs.getString("nombre"),
-                            rs.getString("pais"), rs.getString("email"), Integer.parseInt(rs.getString("Producto_idProducto")));
+                            rs.getString("pais"), rs.getString("email"));
                     proveedores.add(p);
                     i++;
                 }
