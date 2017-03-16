@@ -20,6 +20,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -46,7 +47,7 @@ public class frame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Error de Conexion a la Base de Datos ");
             } else {
                 stmt = cn.conn.createStatement();
-                rs = stmt.executeQuery("select idProveedor, direccion, telefono, nombre, pais, email, Producto_idProducto \n"
+                rs = stmt.executeQuery("select idProveedor, direccion, telefono, nombre, pais, email \n"
                         + "FROM transportecarmen.proveedor c \n"
                         + ";");
                 /*Carga los datos de la base de datos a las propiedades de la clase*/
@@ -111,7 +112,7 @@ public class frame extends javax.swing.JFrame {
         jLabel75 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla_proveedores = new javax.swing.JTable();
         jLabel167 = new javax.swing.JLabel();
         cb_borrar_proveedor4 = new javax.swing.JComboBox<String>();
         jButton24 = new javax.swing.JButton();
@@ -351,6 +352,11 @@ public class frame extends javax.swing.JFrame {
         jTabbedPane3.setBackground(new java.awt.Color(51, 51, 51));
         jTabbedPane3.setForeground(new java.awt.Color(0, 204, 204));
         jTabbedPane3.setFont(new java.awt.Font("Rockwell Condensed", 0, 48)); // NOI18N
+        jTabbedPane3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane3MouseClicked(evt);
+            }
+        });
 
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -435,9 +441,9 @@ public class frame extends javax.swing.JFrame {
 
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(0, 0, 102));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_proveedores.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tabla_proveedores.setForeground(new java.awt.Color(0, 0, 102));
+        tabla_proveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -453,13 +459,13 @@ public class frame extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabla_proveedores);
 
         jPanel11.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 1130, 360));
 
         jLabel167.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel167.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel167.setText("Seleccione Producto");
+        jLabel167.setText("Seleccione Proveedor");
         jPanel11.add(jLabel167, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, -1, -1));
 
         cb_borrar_proveedor4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -1784,6 +1790,21 @@ public class frame extends javax.swing.JFrame {
         for (int i = 0; i < proveedores.size(); i++) {
             modelo.addElement(proveedores.get(i).getNombre());
         }
+        DefaultTableModel tmodel = (DefaultTableModel) tabla_proveedores.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < proveedores.size(); i++) {
+            tmodel.addRow(new Object[]{Integer.toString(proveedores.get(i).getId_Proveedor()),
+                          proveedores.get(i).getNombre(),
+                          proveedores.get(i).getDireccion(),
+                          proveedores.get(i).getPais(),
+                          proveedores.get(i).getTelefono(),
+                          proveedores.get(i).getEmail()});
+        }
+        tabla_proveedores.setModel(tmodel);
+
         cb_editar_proveedor.setModel(modelo);
         jd_Proveedor.setTitle("Proveedor");
         jd_Proveedor.pack();
@@ -1798,7 +1819,7 @@ public class frame extends javax.swing.JFrame {
             Connection cc = cn.mkConnRe();// Obtiene la conexion
             String sql = "";
             sql = "UPDATE proveedor SET direccion=?, telefono=?, nombre=? ,pais=? ,email=? "
-                    + "WHERE idPorveedor="+ id_Proveedor;
+                    + "WHERE idProveedor="+ id_Proveedor;
             PreparedStatement pst = cc.prepareStatement(sql);
             pst.setString(1, tf_editar_proveedor_direccion.getText());
             pst.setString(2, tf_editar_proveedor_telefono.getText());
@@ -1824,6 +1845,23 @@ public class frame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
         } catch (Exception ex) {
         }
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < proveedores.size(); i++) {
+            System.out.println("asdas");
+            modelo.addElement(proveedores.get(i).getNombre());
+        }
+        cb_editar_proveedor.setModel(modelo);
+        DefaultTableModel tmodel = (DefaultTableModel) tabla_proveedores.getModel();
+        for (int i = 0; i < proveedores.size(); i++) {
+            tmodel.addRow(new Object[]{Integer.toString(proveedores.get(i).getId_Proveedor()),
+                          proveedores.get(i).getNombre(),
+                          proveedores.get(i).getDireccion(),
+                          proveedores.get(i).getPais(),
+                          proveedores.get(i).getTelefono(),
+                          proveedores.get(i).getEmail()});
+        }
+        tabla_proveedores.setModel(tmodel);
+        
     }//GEN-LAST:event_jButton7MouseClicked
 
     private void cb_editar_proveedorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_editar_proveedorItemStateChanged
@@ -1841,6 +1879,13 @@ public class frame extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_cb_editar_proveedorItemStateChanged
+
+    private void jTabbedPane3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane3MouseClicked
+        // TODO add your handling code here:
+        if(jTabbedPane3.getSelectedComponent()){
+            System.out.println("perrra");
+        }
+    }//GEN-LAST:event_jTabbedPane3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -2070,7 +2115,6 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane19;
     private javax.swing.JTabbedPane jTabbedPane20;
     private javax.swing.JTabbedPane jTabbedPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
@@ -2087,6 +2131,7 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JLabel jl_PRODUCTO;
     private javax.swing.JLabel jl_PROVEEDOR;
     private javax.swing.JLabel jl_VEHICULO;
+    private javax.swing.JTable tabla_proveedores;
     private javax.swing.JTextField tf_editar_proveedor_correo2;
     private javax.swing.JTextField tf_editar_proveedor_direccion;
     private javax.swing.JTextField tf_editar_proveedor_id;
