@@ -5,13 +5,20 @@
  */
 package basededatos1;
 
+import BaseDatos.Conn;
 import Clases.Cliente;
 import Clases.Conductor;
 import Clases.Factura;
 import Clases.Producto;
 import Clases.Proveedor;
 import Clases.Vehiculo;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,6 +33,52 @@ public class frame extends javax.swing.JFrame {
     public frame() {
         initComponents();
         this.setTitle("Transporte Carmen");
+        //tomar los valores de la tabla proveedor
+        Conn cn = new Conn();// Obtiene la conexion
+        ResultSet rs = null;
+        Statement stmt = null;
+        int i = 0;
+        /*Fin declaracion de variables*/
+        try {
+            /*Crear la conexion a la base de datos */
+            cn.mkConnRe();
+            if (cn == null) {
+                JOptionPane.showMessageDialog(rootPane, "Error de Conexion a la Base de Datos ");
+            } else {
+                stmt = cn.conn.createStatement();
+                rs = stmt.executeQuery("select idProveedor, direccion, telefono, nombre, pais, email, Producto_idProducto \n"
+                        + "FROM transportecarmen.proveedor c \n"
+                        + ";");
+                /*Carga los datos de la base de datos a las propiedades de la clase*/
+                while (rs.next()) {
+                    Proveedor p = new Proveedor(Integer.parseInt(rs.getString("idProveedor")),
+                            rs.getString("direccion"), rs.getString("telefono"), rs.getString("nombre"),
+                            rs.getString("pais"), rs.getString("email"), Integer.parseInt(rs.getString("Producto_idProducto")));
+                    proveedores.add(p);
+                    i++;
+                }
+                if (i == 0) {
+                    //JOptionPane.showMessageDialog(rootPane, "Error la consulta no devolvio registros");
+                } else {
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex + "1");
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (cn.conn != null) {
+                    cn.conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, e + "2");
+            }
+        }
     }
 
     /**
@@ -293,11 +346,6 @@ public class frame extends javax.swing.JFrame {
         jLabel58 = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
 
-        jd_Proveedor.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                jd_ProveedorWindowOpened(evt);
-            }
-        });
         jd_Proveedor.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTabbedPane3.setBackground(new java.awt.Color(51, 51, 51));
@@ -368,6 +416,11 @@ public class frame extends javax.swing.JFrame {
         jPanel9.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, 241, 76));
 
         cb_editar_proveedor.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        cb_editar_proveedor.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_editar_proveedorItemStateChanged(evt);
+            }
+        });
         jPanel9.add(cb_editar_proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 43, 227, -1));
 
         jLabel74.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
@@ -1691,7 +1744,6 @@ public class frame extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_CLIENTEMouseExited
 
     private void jl_PROVEEDORMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_PROVEEDORMouseEntered
-
         jl_PROVEEDOR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Gold-128.png"))); // NOI18N
         jLabel58.setText("PROVEEDOR");
     }//GEN-LAST:event_jl_PROVEEDORMouseEntered
@@ -1728,31 +1780,67 @@ public class frame extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_CLIENTEMouseClicked
 
     private void jl_PROVEEDORMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_PROVEEDORMouseClicked
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < proveedores.size(); i++) {
+            modelo.addElement(proveedores.get(i).getNombre());
+        }
+        cb_editar_proveedor.setModel(modelo);
         jd_Proveedor.setTitle("Proveedor");
         jd_Proveedor.pack();
         jd_Proveedor.setModal(true);
         jd_Proveedor.setVisible(true);
     }//GEN-LAST:event_jl_PROVEEDORMouseClicked
 
-    private void jd_ProveedorWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jd_ProveedorWindowOpened
-        // TODO add your handling code here:
-        //evento para editar el combo box cuando se levanta la ventana
-        this.cb_editar_proveedor.removeAllItems();
-        for (int i = 0; i < this.proveedores.size(); i++) {
-            this.cb_editar_proveedor.addItem(Integer.toString(this.proveedores.get(i).getId_Proveedor()));
-        }
-    }//GEN-LAST:event_jd_ProveedorWindowOpened
-
     private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
         // TODO add your handling code here:
-        //evento para modidifcar algun proveedor
-        String nombre = this.tf_editar_proveedor_nombre.getText();
-        String direccion = this.tf_editar_proveedor_direccion.getText();
-        String pais = this.tf_editar_proveedor_pais.getText();
-        String telefono = this.tf_editar_proveedor_telefono.getText();
-        this.tf_editar_proveedor_nombre.setText("");
-        this.tf_editar_proveedor_direccion.setText("");
+        Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "UPDATE proveedor SET direccion=?, telefono=?, nombre=? ,pais=? ,email=? "
+                    + "WHERE idPorveedor="+ id_Proveedor;
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setString(1, tf_editar_proveedor_direccion.getText());
+            pst.setString(2, tf_editar_proveedor_telefono.getText());
+            pst.setString(3, tf_editar_proveedor_nombre.getText());
+            pst.setString(4, tf_editar_proveedor_pais.getText());
+            pst.setString(5, tf_editar_proveedor_correo2.getText());
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Proveedor Actualizado con exito!");
+                for (int i = 0; i < proveedores.size(); i++) {
+                    if (proveedores.get(i).getId_Proveedor()==id_Proveedor) {
+                        proveedores.get(i).setId_Proveedor(Integer.parseInt(tf_editar_proveedor_id.getText()));
+                        proveedores.get(i).setDireccion(tf_editar_proveedor_direccion.getText());
+                        proveedores.get(i).setTelefono(tf_editar_proveedor_telefono.getText());
+                        proveedores.get(i).setNombre(tf_editar_proveedor_nombre.getText());
+                        proveedores.get(i).setPais(tf_editar_proveedor_pais.getText());
+                        proveedores.get(i).setEmail(tf_editar_proveedor_correo2.getText());
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+        } catch (Exception ex) {
+        }
     }//GEN-LAST:event_jButton7MouseClicked
+
+    private void cb_editar_proveedorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_editar_proveedorItemStateChanged
+        // TODO add your handling code here:
+        for (int i = 0; i < proveedores.size(); i++) {
+            if (proveedores.get(i).getNombre().equals(cb_editar_proveedor.getSelectedItem().toString())) {
+                id_Proveedor = proveedores.get(i).getId_Proveedor();
+                tf_editar_proveedor_id.setText(Integer.toString(proveedores.get(i).getId_Proveedor()));
+                tf_editar_proveedor_nombre.setText(proveedores.get(i).getNombre());
+                tf_editar_proveedor_direccion.setText(proveedores.get(i).getDireccion());
+                tf_editar_proveedor_pais.setText(proveedores.get(i).getPais());
+                tf_editar_proveedor_telefono.setText(proveedores.get(i).getTelefono());
+                tf_editar_proveedor_correo2.setText(proveedores.get(i).getEmail());
+            }
+        }
+
+    }//GEN-LAST:event_cb_editar_proveedorItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -2046,10 +2134,11 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JTextField tf_nuevo_proveedor_pais2;
     private javax.swing.JTextField tf_nuevo_proveedor_telefono2;
     // End of variables declaration//GEN-END:variables
-ArrayList<Proveedor> proveedores = new ArrayList();
-ArrayList<Conductor> conductores = new ArrayList();
-ArrayList<Vehiculo> vehiculos = new ArrayList();
-ArrayList<Producto> productos = new ArrayList();
-ArrayList<Cliente> cientes = new ArrayList();
-ArrayList<Factura> facturas = new ArrayList();
+    ArrayList<Proveedor> proveedores = new ArrayList();
+    ArrayList<Conductor> conductores = new ArrayList();
+    ArrayList<Vehiculo> vehiculos = new ArrayList();
+    ArrayList<Producto> productos = new ArrayList();
+    ArrayList<Cliente> cientes = new ArrayList();
+    ArrayList<Factura> facturas = new ArrayList();
+    int id_Proveedor;
 }
