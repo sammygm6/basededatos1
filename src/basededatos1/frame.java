@@ -102,10 +102,10 @@ public class frame extends javax.swing.JFrame {
         jLabel72 = new javax.swing.JLabel();
         jLabel73 = new javax.swing.JLabel();
         tf_editar_proveedor_correo = new javax.swing.JTextField();
-        tf_editar_proveedor_telefono = new javax.swing.JTextField();
         tf_editar_proveedor_pais = new javax.swing.JTextField();
         tf_editar_proveedor_direccion = new javax.swing.JTextField();
         tf_editar_proveedor_nombre = new javax.swing.JTextField();
+        tf_editar_proveedor_telefono = new javax.swing.JFormattedTextField();
         jButton7 = new javax.swing.JButton();
         cb_editar_proveedor = new javax.swing.JComboBox<String>();
         jLabel74 = new javax.swing.JLabel();
@@ -128,8 +128,8 @@ public class frame extends javax.swing.JFrame {
         tf_nuevo_proveedor_nombre = new javax.swing.JTextField();
         tf_nuevo_proveedor_direccion = new javax.swing.JTextField();
         tf_nuevo_proveedor_pais = new javax.swing.JTextField();
-        tf_nuevo_proveedor_telefono = new javax.swing.JTextField();
         tf_nuevo_proveedor_correo = new javax.swing.JTextField();
+        tf_nuevo_proveedor_telefono = new javax.swing.JFormattedTextField();
         jButton9 = new javax.swing.JButton();
         jLabel91 = new javax.swing.JLabel();
         jLabel68 = new javax.swing.JLabel();
@@ -143,6 +143,8 @@ public class frame extends javax.swing.JFrame {
         jLabel159 = new javax.swing.JLabel();
         jLabel160 = new javax.swing.JLabel();
         jLabel161 = new javax.swing.JLabel();
+        jLabel183 = new javax.swing.JLabel();
+        cb_editar_Producto_proveedor = new javax.swing.JComboBox<String>();
         tf_editar_Producto_nombre = new javax.swing.JTextField();
         jButton21 = new javax.swing.JButton();
         cb_editar_Producto = new javax.swing.JComboBox<String>();
@@ -162,6 +164,8 @@ public class frame extends javax.swing.JFrame {
         jLabel170 = new javax.swing.JLabel();
         tf_nuevo_producto_id = new javax.swing.JTextField();
         tf_nuevo_producto_nombre = new javax.swing.JTextField();
+        jLabel184 = new javax.swing.JLabel();
+        cb_nuevo_Producto_proveedor = new javax.swing.JComboBox<String>();
         jButton23 = new javax.swing.JButton();
         jLabel162 = new javax.swing.JLabel();
         Sp_nuevo_producto_precio = new javax.swing.JSpinner();
@@ -397,9 +401,6 @@ public class frame extends javax.swing.JFrame {
         tf_editar_proveedor_correo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel9.add(tf_editar_proveedor_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 367, 227, -1));
 
-        tf_editar_proveedor_telefono.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jPanel9.add(tf_editar_proveedor_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 313, 227, -1));
-
         tf_editar_proveedor_pais.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel9.add(tf_editar_proveedor_pais, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 259, 227, -1));
 
@@ -408,6 +409,14 @@ public class frame extends javax.swing.JFrame {
 
         tf_editar_proveedor_nombre.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel9.add(tf_editar_proveedor_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 151, 227, -1));
+
+        try {
+            tf_editar_proveedor_telefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######################")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        tf_editar_proveedor_telefono.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPanel9.add(tf_editar_proveedor_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 310, 230, 40));
 
         jButton7.setBackground(new java.awt.Color(204, 204, 204));
         jButton7.setFont(new java.awt.Font("Rockwell", 1, 36)); // NOI18N
@@ -446,7 +455,7 @@ public class frame extends javax.swing.JFrame {
 
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tabla_proveedores.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tabla_proveedores.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tabla_proveedores.setForeground(new java.awt.Color(0, 0, 102));
         tabla_proveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -459,9 +468,16 @@ public class frame extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tabla_proveedores);
@@ -538,11 +554,16 @@ public class frame extends javax.swing.JFrame {
         tf_nuevo_proveedor_pais.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel12.add(tf_nuevo_proveedor_pais, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 196, 186, -1));
 
-        tf_nuevo_proveedor_telefono.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jPanel12.add(tf_nuevo_proveedor_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 250, 186, -1));
-
         tf_nuevo_proveedor_correo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel12.add(tf_nuevo_proveedor_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 304, 186, -1));
+
+        try {
+            tf_nuevo_proveedor_telefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####################")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        tf_nuevo_proveedor_telefono.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPanel12.add(tf_nuevo_proveedor_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 250, 190, 40));
 
         jButton9.setBackground(new java.awt.Color(204, 204, 204));
         jButton9.setFont(new java.awt.Font("Rockwell", 1, 36)); // NOI18N
@@ -606,8 +627,16 @@ public class frame extends javax.swing.JFrame {
 
         jLabel161.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel161.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel161.setText("Cantidad Total");
-        jPanel24.add(jLabel161, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 264, -1, -1));
+        jLabel161.setText("Proveedor");
+        jPanel24.add(jLabel161, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 320, -1, -1));
+
+        jLabel183.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
+        jLabel183.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel183.setText("Cantidad Total");
+        jPanel24.add(jLabel183, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 264, -1, -1));
+
+        cb_editar_Producto_proveedor.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPanel24.add(cb_editar_Producto_proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 320, 227, -1));
 
         tf_editar_Producto_nombre.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel24.add(tf_editar_Producto_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 151, 227, -1));
@@ -617,7 +646,7 @@ public class frame extends javax.swing.JFrame {
         jButton21.setForeground(new java.awt.Color(153, 153, 0));
         jButton21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/compose-64.png"))); // NOI18N
         jButton21.setText("Editar");
-        jPanel24.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 350, 241, 76));
+        jPanel24.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 410, 241, 76));
 
         cb_editar_Producto.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel24.add(cb_editar_Producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 43, 227, -1));
@@ -625,7 +654,7 @@ public class frame extends javax.swing.JFrame {
         Sp_editar_Producto_Tcantidad.setModel(new javax.swing.SpinnerNumberModel());
         jPanel24.add(Sp_editar_Producto_Tcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 270, 220, -1));
 
-        Sp_editar_Producto_precio.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(1.0d)));
+        Sp_editar_Producto_precio.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.0f), null, null, Float.valueOf(1.0f)));
         jPanel24.add(Sp_editar_Producto_precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 210, 220, -1));
 
         jLabel164.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
@@ -640,22 +669,29 @@ public class frame extends javax.swing.JFrame {
 
         jPanel26.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable_Producto.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTable_Producto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTable_Producto.setForeground(new java.awt.Color(0, 0, 102));
         jTable_Producto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "NOMBRE", "PRECIO", "CANTIDAD TOTAL"
+                "ID", "NOMBRE", "PRECIO", "CANTIDAD TOTAL", "PROVEEDOR"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane2.setViewportView(jTable_Producto);
@@ -704,12 +740,20 @@ public class frame extends javax.swing.JFrame {
         tf_nuevo_producto_nombre.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel27.add(tf_nuevo_producto_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 130, 220, -1));
 
+        jLabel184.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
+        jLabel184.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel184.setText("Proveedor");
+        jPanel27.add(jLabel184, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, -1, -1));
+
+        cb_nuevo_Producto_proveedor.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPanel27.add(cb_nuevo_Producto_proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(677, 310, 230, -1));
+
         jButton23.setBackground(new java.awt.Color(204, 204, 204));
         jButton23.setFont(new java.awt.Font("Rockwell", 1, 36)); // NOI18N
         jButton23.setForeground(new java.awt.Color(0, 153, 153));
         jButton23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/07_plus-64.png"))); // NOI18N
         jButton23.setText("Crear");
-        jPanel27.add(jButton23, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 340, -1, -1));
+        jPanel27.add(jButton23, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 390, -1, -1));
 
         jLabel162.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel162.setForeground(new java.awt.Color(204, 204, 204));
@@ -2095,10 +2139,12 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb_borrar_traileta;
     private javax.swing.JComboBox<String> cb_borrar_vehiculo;
     private javax.swing.JComboBox<String> cb_editar_Producto;
+    private javax.swing.JComboBox<String> cb_editar_Producto_proveedor;
     private javax.swing.JComboBox<String> cb_editar_conductor;
     private javax.swing.JComboBox<String> cb_editar_proveedor;
     private javax.swing.JComboBox<String> cb_editar_vehiculo;
     private javax.swing.JComboBox<String> cb_editar_vehiculo_tipoCombu;
+    private javax.swing.JComboBox<String> cb_nuevo_Producto_proveedor;
     private javax.swing.JComboBox<String> cb_nuevo_vehiculo_tipoCombu;
     private javax.swing.JButton jButton21;
     private javax.swing.JButton jButton22;
@@ -2141,6 +2187,8 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel180;
     private javax.swing.JLabel jLabel181;
     private javax.swing.JLabel jLabel182;
+    private javax.swing.JLabel jLabel183;
+    private javax.swing.JLabel jLabel184;
     private javax.swing.JLabel jLabel187;
     private javax.swing.JLabel jLabel188;
     private javax.swing.JLabel jLabel189;
@@ -2294,7 +2342,7 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JTextField tf_editar_proveedor_id;
     private javax.swing.JTextField tf_editar_proveedor_nombre;
     private javax.swing.JTextField tf_editar_proveedor_pais;
-    private javax.swing.JTextField tf_editar_proveedor_telefono;
+    private javax.swing.JFormattedTextField tf_editar_proveedor_telefono;
     private javax.swing.JTextField tf_editar_vehiculo_localizador;
     private javax.swing.JTextField tf_editar_vehiculo_marca;
     private javax.swing.JTextField tf_editar_vehiculo_modelo;
@@ -2316,7 +2364,7 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JTextField tf_nuevo_proveedor_id;
     private javax.swing.JTextField tf_nuevo_proveedor_nombre;
     private javax.swing.JTextField tf_nuevo_proveedor_pais;
-    private javax.swing.JTextField tf_nuevo_proveedor_telefono;
+    private javax.swing.JFormattedTextField tf_nuevo_proveedor_telefono;
     private javax.swing.JTextField tf_nuevo_vehiculo_color;
     private javax.swing.JTextField tf_nuevo_vehiculo_localizador;
     private javax.swing.JTextField tf_nuevo_vehiculo_marca;
