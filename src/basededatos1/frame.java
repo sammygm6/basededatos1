@@ -80,6 +80,54 @@ public class frame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, e + "2");
             }
         }
+        //toma los valores de la tabla de prodcto
+        cn = new Conn();// Obtiene la conexion
+        rs = null;
+        stmt = null;
+        i = 0;
+        /*Fin declaracion de variables*/
+        try {
+            /*Crear la conexion a la base de datos */
+            cn.mkConnRe();
+            if (cn == null) {
+                JOptionPane.showMessageDialog(rootPane, "Error de Conexion a la Base de Datos ");
+            } else {
+                stmt = cn.conn.createStatement();
+                rs = stmt.executeQuery("select idProducto, cantidad, nombre, precio, Proveedor_idProveedor \n"
+                        + "FROM transportecarmen.producto c \n"
+                        + ";");
+                /*Carga los datos de la base de datos a las propiedades de la clase*/
+                while (rs.next()) {
+                    Producto pro = new Producto(Integer.parseInt(rs.getString("idProducto")),
+                            Double.parseDouble(rs.getString("cantidad")), rs.getString("nombre"),
+                            Double.parseDouble(rs.getString("precio")),
+                            Integer.parseInt(rs.getString("Proveedor_idProveedor")));
+                    productos.add(pro);
+                    i++;
+                }
+                if (i == 0) {
+                    //JOptionPane.showMessageDialog(rootPane, "Error la consulta no devolvio registros");
+                } else {
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex + "1");
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (cn.conn != null) {
+                    cn.conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, e + "2");
+            }
+        }
+
     }
 
     /**
@@ -411,7 +459,7 @@ public class frame extends javax.swing.JFrame {
         jPanel9.add(tf_editar_proveedor_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 151, 227, -1));
 
         try {
-            tf_editar_proveedor_telefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######################")));
+            tf_editar_proveedor_telefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -558,7 +606,7 @@ public class frame extends javax.swing.JFrame {
         jPanel12.add(tf_nuevo_proveedor_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 304, 186, -1));
 
         try {
-            tf_nuevo_proveedor_telefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####################")));
+            tf_nuevo_proveedor_telefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -604,6 +652,11 @@ public class frame extends javax.swing.JFrame {
         jTabbedPane17.setBackground(new java.awt.Color(51, 51, 51));
         jTabbedPane17.setForeground(new java.awt.Color(0, 204, 204));
         jTabbedPane17.setFont(new java.awt.Font("Rockwell Condensed", 0, 48)); // NOI18N
+        jTabbedPane17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane17MouseClicked(evt);
+            }
+        });
 
         jPanel24.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -646,9 +699,24 @@ public class frame extends javax.swing.JFrame {
         jButton21.setForeground(new java.awt.Color(153, 153, 0));
         jButton21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/compose-64.png"))); // NOI18N
         jButton21.setText("Editar");
+        jButton21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton21ActionPerformed(evt);
+            }
+        });
         jPanel24.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 410, 241, 76));
 
         cb_editar_Producto.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        cb_editar_Producto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_editar_ProductoItemStateChanged(evt);
+            }
+        });
+        cb_editar_Producto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_editar_ProductoActionPerformed(evt);
+            }
+        });
         jPanel24.add(cb_editar_Producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 43, 227, -1));
 
         Sp_editar_Producto_Tcantidad.setModel(new javax.swing.SpinnerNumberModel());
@@ -676,11 +744,11 @@ public class frame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "NOMBRE", "PRECIO", "CANTIDAD TOTAL", "PROVEEDOR"
+                "ID", "NOMBRE", "PRECIO", "CANTIDAD TOTAL", "ID PROVEEDOR"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -694,11 +762,9 @@ public class frame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable_Producto.getTableHeader().setResizingAllowed(false);
+        jTable_Producto.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable_Producto);
-        if (jTable_Producto.getColumnModel().getColumnCount() > 0) {
-            jTable_Producto.getColumnModel().getColumn(2).setHeaderValue("");
-            jTable_Producto.getColumnModel().getColumn(3).setHeaderValue("Modelo");
-        }
 
         jPanel26.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 1130, 350));
 
@@ -715,6 +781,11 @@ public class frame extends javax.swing.JFrame {
         jButton22.setForeground(new java.awt.Color(0, 102, 102));
         jButton22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/-_delete_minus_cancel_close-64.png"))); // NOI18N
         jButton22.setText("Borrar");
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton22ActionPerformed(evt);
+            }
+        });
         jPanel26.add(jButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 410, 241, 76));
 
         jLabel168.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Dark-Gray-Background-for-Free-Download.jpg"))); // NOI18N
@@ -734,6 +805,7 @@ public class frame extends javax.swing.JFrame {
         jLabel170.setText("Nombre");
         jPanel27.add(jLabel170, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, -1));
 
+        tf_nuevo_producto_id.setEditable(false);
         tf_nuevo_producto_id.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel27.add(tf_nuevo_producto_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 70, 220, -1));
 
@@ -753,6 +825,11 @@ public class frame extends javax.swing.JFrame {
         jButton23.setForeground(new java.awt.Color(0, 153, 153));
         jButton23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/07_plus-64.png"))); // NOI18N
         jButton23.setText("Crear");
+        jButton23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton23ActionPerformed(evt);
+            }
+        });
         jPanel27.add(jButton23, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 390, -1, -1));
 
         jLabel162.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
@@ -768,7 +845,7 @@ public class frame extends javax.swing.JFrame {
         jLabel163.setText("Cantidad Total");
         jPanel27.add(jLabel163, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, -1, -1));
 
-        Sp_nuevo_producto_Tcantidad.setModel(new javax.swing.SpinnerNumberModel());
+        Sp_nuevo_producto_Tcantidad.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(1.0d)));
         jPanel27.add(Sp_nuevo_producto_Tcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, 220, -1));
 
         jLabel175.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dark-grey-background-pattern-i7.jpg"))); // NOI18N
@@ -1769,8 +1846,34 @@ public class frame extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_CONDUCTORMouseExited
 
     private void jl_PRODUCTOMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_PRODUCTOMouseClicked
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < productos.size(); i++) {
+            modelo.addElement(productos.get(i).getNombre());
+        }
+        DefaultTableModel tmodel = (DefaultTableModel) jTable_Producto.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < productos.size(); i++) {
+            tmodel.addRow(new Object[]{productos.get(i).getId_Produto(),
+                productos.get(i).getNombre(),
+                productos.get(i).getPrecio(),
+                productos.get(i).getCantidad(),
+                productos.get(i).getIdProveedor()});
+        }
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < proveedores.size(); i++) {
+            model.addElement(proveedores.get(i).getNombre());
+        }
+        cb_nuevo_Producto_proveedor.setModel(model);
+        cb_editar_Producto_proveedor.setModel(model);
+        jTable_Producto.setModel(tmodel);
+        cb_borrar_producto.setModel(modelo);
+        cb_editar_Producto.setModel(modelo);
         jd_Producto.setTitle("Producto");
         jd_Producto.setModal(true);
+        jd_Producto.pack();
         jd_Producto.setVisible(true);
     }//GEN-LAST:event_jl_PRODUCTOMouseClicked
 
@@ -2075,6 +2178,216 @@ public class frame extends javax.swing.JFrame {
         tabla_proveedores.setModel(tmodel);
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void cb_editar_ProductoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_editar_ProductoItemStateChanged
+        // TODO add your handling code here:
+        for (int i = 0; i < productos.size(); i++) {
+            if (productos.get(i).getNombre().equals(cb_editar_Producto.getSelectedItem().toString())) {
+                id_Producto = productos.get(i).getId_Produto();
+                tf_editar_Producto_id.setText(Integer.toString(productos.get(i).getId_Produto()));
+                tf_editar_Producto_nombre.setText(productos.get(i).getNombre());
+                Sp_editar_Producto_precio.setValue(productos.get(i).getPrecio());
+                Sp_editar_Producto_Tcantidad.setValue(productos.get(i).getCantidad());
+                for (int j = 0; j < proveedores.size(); j++) {
+                    if (proveedores.get(j).getId_Proveedor() == productos.get(i).getIdProveedor()) {
+                        cb_editar_Producto_proveedor.setSelectedItem(proveedores.get(j).getNombre());
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_cb_editar_ProductoItemStateChanged
+
+    private void cb_editar_ProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_editar_ProductoActionPerformed
+        // TODO add your handling code here:
+        for (int i = 0; i < productos.size(); i++) {
+            if (productos.get(i).getNombre().equals(cb_editar_Producto.getSelectedItem().toString())) {
+                id_Producto = productos.get(i).getId_Produto();
+                tf_editar_Producto_id.setText(Integer.toString(productos.get(i).getId_Produto()));
+                tf_editar_Producto_nombre.setText(productos.get(i).getNombre());
+                Sp_editar_Producto_precio.setValue(productos.get(i).getPrecio());
+                Sp_editar_Producto_Tcantidad.setValue(productos.get(i).getCantidad());
+                for (int j = 0; j < proveedores.size(); j++) {
+                    if (proveedores.get(j).getId_Proveedor() == productos.get(i).getIdProveedor()) {
+                        cb_editar_Producto_proveedor.setSelectedItem(proveedores.get(j).getNombre());
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_cb_editar_ProductoActionPerformed
+
+    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+        // TODO add your handling code here:
+        int Proveedor_idProveedor = 0;
+        for (int i = 0; i < proveedores.size(); i++) {
+            if (cb_editar_Producto_proveedor.getSelectedItem().equals(proveedores.get(i).getNombre())) {
+                Proveedor_idProveedor = proveedores.get(i).getId_Proveedor();
+            }
+        }
+        Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "UPDATE producto SET cantidad=?, nombre=? ,precio=? ,Proveedor_idProveedor=? "
+                    + "WHERE idProducto=" + id_Producto;
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setString(1, Sp_editar_Producto_Tcantidad.getValue().toString());
+            pst.setString(2, tf_editar_Producto_nombre.getText());
+            pst.setString(3, Sp_editar_Producto_precio.getValue().toString());
+            pst.setString(4, Integer.toString(Proveedor_idProveedor));
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Producto Actualizado con exito!");
+                for (int i = 0; i < productos.size(); i++) {
+                    if (productos.get(i).getId_Produto() == id_Producto) {
+                        productos.get(i).setId_Produto(id_Producto);
+                        productos.get(i).setCantidad(Double.parseDouble(Sp_editar_Producto_Tcantidad.getValue().toString()));
+                        productos.get(i).setNombre(tf_editar_Producto_nombre.getText());
+                        productos.get(i).setPrecio(Double.parseDouble(Sp_editar_Producto_precio.getValue().toString()));
+                        productos.get(i).setIdProveedor(Proveedor_idProveedor);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+        } catch (Exception ex) {
+        }
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < productos.size(); i++) {
+            modelo.addElement(productos.get(i).getNombre());
+        }
+        cb_borrar_producto.setModel(modelo);
+        cb_editar_Producto.setModel(modelo);
+    }//GEN-LAST:event_jButton21ActionPerformed
+
+    private void jTabbedPane17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane17MouseClicked
+        // TODO add your handling code here:
+        if (jTabbedPane17.getSelectedIndex() == 1) {
+            DefaultTableModel tmodel = (DefaultTableModel) jTable_Producto.getModel();
+            int fila = tmodel.getRowCount();
+            for (int i = 1; i <= fila; i++) {
+                tmodel.removeRow(0);
+            }
+            for (int i = 0; i < productos.size(); i++) {
+                tmodel.addRow(new Object[]{productos.get(i).getId_Produto(),
+                    productos.get(i).getNombre(),
+                    productos.get(i).getPrecio(),
+                    productos.get(i).getCantidad(),
+                    productos.get(i).getIdProveedor()});
+            }
+            jTable_Producto.setModel(tmodel);
+        } else if (jTabbedPane17.getSelectedIndex() == 2) {
+            tf_nuevo_producto_id.setText(Integer.toString(productos.get(productos.size() - 1).getId_Produto() + 1));
+
+        }
+    }//GEN-LAST:event_jTabbedPane17MouseClicked
+
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+        // TODO add your handling code here:
+        for (int i = 0; i < productos.size(); i++) {
+            if (productos.get(i).getNombre().equals(cb_borrar_producto.getSelectedItem())) {
+                id_Producto = productos.get(i).getId_Produto();
+            }
+        }
+        Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "DELETE FROM producto "
+                    + "WHERE idProducto=?";
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setInt(1, id_Producto);
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Producto Eliminado con exito!");
+                for (int i = 0; i < productos.size(); i++) {
+                    if (productos.get(i).getId_Produto() == id_Producto) {
+                        productos.remove(i);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+        } catch (Exception ex) {
+        }
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < productos.size(); i++) {
+            modelo.addElement(productos.get(i).getNombre());
+        }
+        cb_borrar_producto.setModel(modelo);
+        cb_editar_Producto.setModel(modelo);
+        DefaultTableModel tmodel = (DefaultTableModel) jTable_Producto.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < productos.size(); i++) {
+            tmodel.addRow(new Object[]{productos.get(i).getId_Produto(),
+                productos.get(i).getNombre(),
+                productos.get(i).getPrecio(),
+                productos.get(i).getCantidad(),
+                productos.get(i).getIdProveedor()});
+        }
+        jTable_Producto.setModel(tmodel);
+    }//GEN-LAST:event_jButton22ActionPerformed
+
+    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
+        // TODO add your handling code here:
+        int idNuevoProveedor = 0;
+        for (int i = 0; i < proveedores.size(); i++) {
+            if (proveedores.get(i).getNombre().equals(cb_nuevo_Producto_proveedor.getSelectedItem().toString())) {
+                idNuevoProveedor = proveedores.get(i).getId_Proveedor();
+            }
+        }
+        Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "INSERT INTO producto (idProducto, cantidad, nombre, precio, Proveedor_idProveedor)"
+                    + "VALUES (?,?,?,?,?)";
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setInt(1, Integer.parseInt(tf_nuevo_producto_id.getText()));
+            pst.setDouble(2, Double.parseDouble(Sp_nuevo_producto_Tcantidad.getValue().toString()));
+            pst.setString(3, tf_nuevo_producto_nombre.getText());
+            pst.setDouble(4, Double.parseDouble(Sp_nuevo_producto_precio.getValue().toString()));
+            pst.setInt(5, idNuevoProveedor);
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Producto Creadoo con exito!");
+                Producto pro = new Producto(Integer.parseInt(tf_nuevo_producto_id.getText()),
+                        Double.parseDouble(Sp_nuevo_producto_Tcantidad.getValue().toString()), 
+                        tf_nuevo_producto_nombre.getText(),
+                        Double.parseDouble(Sp_nuevo_producto_precio.getValue().toString()),
+                        idNuevoProveedor);
+                productos.add(pro);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+
+        } catch (Exception ex) {
+        }
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < productos.size(); i++) {
+            modelo.addElement(productos.get(i).getNombre());
+        }
+        cb_borrar_producto.setModel(modelo);
+        cb_editar_Producto.setModel(modelo);
+        DefaultTableModel tmodel = (DefaultTableModel) jTable_Producto.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < productos.size(); i++) {
+            tmodel.addRow(new Object[]{productos.get(i).getId_Produto(),
+                productos.get(i).getNombre(),
+                productos.get(i).getPrecio(),
+                productos.get(i).getCantidad(),
+                productos.get(i).getIdProveedor()});
+        }
+        jTable_Producto.setModel(tmodel);
+    }//GEN-LAST:event_jButton23ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2378,4 +2691,5 @@ public class frame extends javax.swing.JFrame {
     ArrayList<Cliente> cientes = new ArrayList();
     ArrayList<Factura> facturas = new ArrayList();
     int id_Proveedor;
+    int id_Producto;
 }

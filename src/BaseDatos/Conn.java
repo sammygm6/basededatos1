@@ -35,7 +35,7 @@ public class Conn {
                   this.Puerto  = "3306";
                   this.BD      = "transportecarmen";
                   this.Usuario = "root";
-                  this.Clave   = "";
+                  this.Clave   = "miguelangel1";
                   String driver = "com.mysql.jdbc.Driver";
                   String url = "jdbc:mysql://"+this.IP+":"+this.Puerto+"/"+this.BD+
                           "?noAccessToProcedureBodies=true&amp;zeroDateTimeBehavior=convertToNull";  
