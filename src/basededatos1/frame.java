@@ -13,13 +13,16 @@ import Clases.Producto;
 import Clases.Proveedor;
 import Clases.Vehiculo;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerDateModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -128,6 +131,55 @@ public class frame extends javax.swing.JFrame {
             }
         }
 
+        //toma los valores de la tabla de cliente
+        cn = new Conn();// Obtiene la conexion
+        rs = null;
+        stmt = null;
+        i = 0;
+        /*Fin declaracion de variables*/
+        try {
+            /*Crear la conexion a la base de datos */
+            cn.mkConnRe();
+            if (cn == null) {
+                JOptionPane.showMessageDialog(rootPane, "Error de Conexion a la Base de Datos ");
+            } else {
+                stmt = cn.conn.createStatement();
+                rs = stmt.executeQuery("select idCliente, telefono, direccion, nombrecontacto, fechainiciocontrato, nombreempresa \n"
+                        + "FROM transportecarmen.cliente c \n"
+                        + ";");
+                /*Carga los datos de la base de datos a las propiedades de la clase*/
+                while (rs.next()) {
+                    Cliente cli = new Cliente(rs.getInt("idCliente"),
+                            rs.getString("telefono"),
+                            rs.getString("direccion"),
+                            rs.getString("nombrecontacto"),
+                            rs.getDate("fechainiciocontrato"),
+                            rs.getString("nombreempresa"));
+                    clientes.add(cli);
+                    i++;
+                }
+                if (i == 0) {
+                    //JOptionPane.showMessageDialog(rootPane, "Error la consulta no devolvio registros");
+                } else {
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex + "1");
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (cn.conn != null) {
+                    cn.conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, e + "2");
+            }
+        }
     }
 
     /**
@@ -233,13 +285,13 @@ public class frame extends javax.swing.JFrame {
         jLabel174 = new javax.swing.JLabel();
         tf_editar_Cliente_direccion = new javax.swing.JTextField();
         jButton25 = new javax.swing.JButton();
-        tf_editar_Cliente = new javax.swing.JComboBox<String>();
+        cb_editar_Cliente = new javax.swing.JComboBox<String>();
         Sp_editar_Cliente_fecaInicio = new javax.swing.JSpinner();
         jLabel179 = new javax.swing.JLabel();
         tf_editar_Cliente_empresa = new javax.swing.JTextField();
         tf_editar_Cliente_nombreContacto = new javax.swing.JTextField();
+        tf_editar_cliente_telefono = new javax.swing.JFormattedTextField();
         jLabel191 = new javax.swing.JLabel();
-        tf_editar_Cliente_telefono = new javax.swing.JTextField();
         jLabel192 = new javax.swing.JLabel();
         jLabel193 = new javax.swing.JLabel();
         jLabel180 = new javax.swing.JLabel();
@@ -261,10 +313,10 @@ public class frame extends javax.swing.JFrame {
         tf_nuevo_Cliente_direccion = new javax.swing.JTextField();
         Sp_nuevo_Cliente_fechaInicio = new javax.swing.JSpinner();
         tf_nuevo_Cliente_empresa = new javax.swing.JTextField();
+        tf_nuevo_cliente_telefono = new javax.swing.JFormattedTextField();
         jLabel199 = new javax.swing.JLabel();
         jLabel200 = new javax.swing.JLabel();
         tf_nuevo_Cliente_nombreContacto = new javax.swing.JTextField();
-        tf_nuevo_Cliente_telefono = new javax.swing.JTextField();
         jLabel187 = new javax.swing.JLabel();
         jLabel188 = new javax.swing.JLabel();
         jLabel189 = new javax.swing.JLabel();
@@ -875,6 +927,11 @@ public class frame extends javax.swing.JFrame {
         jTabbedPane18.setBackground(new java.awt.Color(51, 51, 51));
         jTabbedPane18.setForeground(new java.awt.Color(0, 204, 204));
         jTabbedPane18.setFont(new java.awt.Font("Rockwell Condensed", 0, 48)); // NOI18N
+        jTabbedPane18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane18MouseClicked(evt);
+            }
+        });
 
         jPanel25.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -910,10 +967,25 @@ public class frame extends javax.swing.JFrame {
         jButton25.setForeground(new java.awt.Color(153, 153, 0));
         jButton25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/compose-64.png"))); // NOI18N
         jButton25.setText("Editar");
+        jButton25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton25ActionPerformed(evt);
+            }
+        });
         jPanel25.add(jButton25, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 380, 241, 76));
 
-        tf_editar_Cliente.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jPanel25.add(tf_editar_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 43, 227, -1));
+        cb_editar_Cliente.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        cb_editar_Cliente.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_editar_ClienteItemStateChanged(evt);
+            }
+        });
+        cb_editar_Cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_editar_ClienteActionPerformed(evt);
+            }
+        });
+        jPanel25.add(cb_editar_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 43, 227, -1));
 
         Sp_editar_Cliente_fecaInicio.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Sp_editar_Cliente_fecaInicio.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null, java.util.Calendar.MONTH));
@@ -930,13 +1002,18 @@ public class frame extends javax.swing.JFrame {
         tf_editar_Cliente_nombreContacto.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel25.add(tf_editar_Cliente_nombreContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 230, 250, -1));
 
+        try {
+            tf_editar_cliente_telefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        tf_editar_cliente_telefono.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPanel25.add(tf_editar_cliente_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 120, 230, 40));
+
         jLabel191.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel191.setForeground(new java.awt.Color(204, 204, 204));
         jLabel191.setText("Nombre de ");
         jPanel25.add(jLabel191, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 200, 150, -1));
-
-        tf_editar_Cliente_telefono.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jPanel25.add(tf_editar_Cliente_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 120, 250, -1));
 
         jLabel192.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel192.setForeground(new java.awt.Color(204, 204, 204));
@@ -955,22 +1032,29 @@ public class frame extends javax.swing.JFrame {
 
         jPanel28.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable_cliente.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTable_cliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTable_cliente.setForeground(new java.awt.Color(0, 0, 102));
         jTable_cliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "NOMBRE", "PRECIO", "CANTIDAD TOTAL"
+                "ID", "NOMBRE EMPRESA", "FECHA INICIO CONTRATO", "DIRECCION", "TELEFONO", "NOMBRE DE CONTACTO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane3.setViewportView(jTable_cliente);
@@ -994,6 +1078,11 @@ public class frame extends javax.swing.JFrame {
         jButton26.setForeground(new java.awt.Color(0, 102, 102));
         jButton26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/-_delete_minus_cancel_close-64.png"))); // NOI18N
         jButton26.setText("Borrar");
+        jButton26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton26ActionPerformed(evt);
+            }
+        });
         jPanel28.add(jButton26, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 410, 241, 76));
 
         jLabel182.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Dark-Gray-Background-for-Free-Download.jpg"))); // NOI18N
@@ -1008,6 +1097,11 @@ public class frame extends javax.swing.JFrame {
         jButton27.setForeground(new java.awt.Color(0, 153, 153));
         jButton27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/07_plus-64.png"))); // NOI18N
         jButton27.setText("Crear");
+        jButton27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton27ActionPerformed(evt);
+            }
+        });
         jPanel29.add(jButton27, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, -1, -1));
 
         jLabel194.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
@@ -1049,6 +1143,14 @@ public class frame extends javax.swing.JFrame {
         tf_nuevo_Cliente_empresa.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel29.add(tf_nuevo_Cliente_empresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(417, 180, 250, -1));
 
+        try {
+            tf_nuevo_cliente_telefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        tf_nuevo_cliente_telefono.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPanel29.add(tf_nuevo_cliente_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 120, 230, 40));
+
         jLabel199.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel199.setForeground(new java.awt.Color(204, 204, 204));
         jLabel199.setText("Nombre de ");
@@ -1061,9 +1163,6 @@ public class frame extends javax.swing.JFrame {
 
         tf_nuevo_Cliente_nombreContacto.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel29.add(tf_nuevo_Cliente_nombreContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 230, 250, -1));
-
-        tf_nuevo_Cliente_telefono.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jPanel29.add(tf_nuevo_Cliente_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 120, 250, -1));
 
         jLabel187.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dark-grey-background-pattern-i7.jpg"))); // NOI18N
         jPanel29.add(jLabel187, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1210, 520));
@@ -1947,6 +2046,26 @@ public class frame extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_VEHICULOMouseClicked
 
     private void jl_CLIENTEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_CLIENTEMouseClicked
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < clientes.size(); i++) {
+            modelo.addElement(clientes.get(i).getNombre_Empresa());
+        }
+        DefaultTableModel tmodel = (DefaultTableModel) jTable_cliente.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < clientes.size(); i++) {
+            tmodel.addRow(new Object[]{clientes.get(i).getCliente(),
+                clientes.get(i).getNombre_Empresa(),
+                clientes.get(i).getFecha_iniContrato(),
+                clientes.get(i).getDireccion(),
+                clientes.get(i).getTelefono(),
+                clientes.get(i).getNombre()});
+        }
+        jTable_cliente.setModel(tmodel);
+        cb_borrar_cliente.setModel(modelo);
+        cb_editar_Cliente.setModel(modelo);
         jd_Cliente.setTitle("Cliente");
         jd_Cliente.pack();
         jd_Cliente.setModal(true);
@@ -2355,7 +2474,7 @@ public class frame extends javax.swing.JFrame {
             if (nu > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Producto Creadoo con exito!");
                 Producto pro = new Producto(Integer.parseInt(tf_nuevo_producto_id.getText()),
-                        Double.parseDouble(Sp_nuevo_producto_Tcantidad.getValue().toString()), 
+                        Double.parseDouble(Sp_nuevo_producto_Tcantidad.getValue().toString()),
                         tf_nuevo_producto_nombre.getText(),
                         Double.parseDouble(Sp_nuevo_producto_precio.getValue().toString()),
                         idNuevoProveedor);
@@ -2387,6 +2506,205 @@ public class frame extends javax.swing.JFrame {
         }
         jTable_Producto.setModel(tmodel);
     }//GEN-LAST:event_jButton23ActionPerformed
+
+    private void cb_editar_ClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_editar_ClienteItemStateChanged
+        // TODO add your handling code here:
+        for (int i = 0; i < clientes.size(); i++) {
+            if (cb_editar_Cliente.getSelectedItem().equals(clientes.get(i).getNombre_Empresa())) {
+                id_Cliente = clientes.get(i).getCliente();
+                tf_editar_Cliente_id.setText(Integer.toString(clientes.get(i).getCliente()));
+                tf_editar_Cliente_empresa.setText(clientes.get(i).getNombre_Empresa());
+                SpinnerDateModel model = (SpinnerDateModel)Sp_editar_Cliente_fecaInicio.getModel();
+                model.setValue(clientes.get(i).getFecha_iniContrato());
+                Sp_editar_Cliente_fecaInicio.setValue(model.getDate());
+                tf_editar_Cliente_direccion.setText(clientes.get(i).getDireccion());
+                tf_editar_cliente_telefono.setText(clientes.get(i).getTelefono());
+                tf_editar_Cliente_nombreContacto.setText(clientes.get(i).getNombre());
+            }
+        }
+    }//GEN-LAST:event_cb_editar_ClienteItemStateChanged
+
+    private void cb_editar_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_editar_ClienteActionPerformed
+        // TODO add your handling code here:
+        for (int i = 0; i < clientes.size(); i++) {
+            if (cb_editar_Cliente.getSelectedItem().equals(clientes.get(i).getNombre_Empresa())) {
+                id_Cliente = clientes.get(i).getCliente();
+                tf_editar_Cliente_id.setText(Integer.toString(clientes.get(i).getCliente()));
+                tf_editar_Cliente_empresa.setText(clientes.get(i).getNombre_Empresa());
+                SpinnerDateModel model = (SpinnerDateModel)Sp_editar_Cliente_fecaInicio.getModel();
+                model.setValue(clientes.get(i).getFecha_iniContrato());
+                Sp_editar_Cliente_fecaInicio.setValue(model.getDate());
+                tf_editar_Cliente_direccion.setText(clientes.get(i).getDireccion());
+                tf_editar_cliente_telefono.setText(clientes.get(i).getTelefono());
+                tf_editar_Cliente_nombreContacto.setText(clientes.get(i).getNombre());
+            }
+        }
+    }//GEN-LAST:event_cb_editar_ClienteActionPerformed
+
+    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
+        // TODO add your handling code here:
+        Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "UPDATE cliente SET telefono=?, direccion=?, nombrecontacto=?, fechainiciocontrato=?, nombreempresa=? "
+                    + "WHERE idCliente=" + id_Cliente;
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setString(1, tf_editar_cliente_telefono.getText());
+            pst.setString(2, tf_editar_Cliente_direccion.getText());
+            pst.setString(3, tf_editar_Cliente_nombreContacto.getText());
+            SpinnerDateModel model = (SpinnerDateModel)Sp_editar_Cliente_fecaInicio.getModel();
+            pst.setDate(4, new java.sql.Date(model.getDate().getTime()));
+            pst.setString(5, tf_editar_Cliente_empresa.getText());
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Cliente Actualizado con exito!");
+                for (int i = 0; i < clientes.size(); i++) {
+                    if (clientes.get(i).getCliente() == id_Cliente) {
+                        clientes.get(i).setCliente(id_Cliente);
+                        clientes.get(i).setTelefono(tf_editar_cliente_telefono.getText());
+                        clientes.get(i).setDireccion(tf_editar_Cliente_direccion.getText());
+                        clientes.get(i).setNombre(tf_editar_Cliente_nombreContacto.getText());
+                        clientes.get(i).setFecha_iniContrato(model.getDate());
+                        clientes.get(i).setNombre_Empresa(tf_editar_Cliente_empresa.getText());
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex);
+        }
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < clientes.size(); i++) {
+            modelo.addElement(clientes.get(i).getNombre_Empresa());
+        }
+        cb_borrar_cliente.setModel(modelo);
+        cb_editar_Cliente.setModel(modelo);
+    }//GEN-LAST:event_jButton25ActionPerformed
+
+    private void jTabbedPane18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane18MouseClicked
+        // TODO add your handling code here:
+        if (jTabbedPane18.getSelectedIndex() == 1) {
+            DefaultTableModel tmodel = (DefaultTableModel) jTable_cliente.getModel();
+            int fila = tmodel.getRowCount();
+            for (int i = 1; i <= fila; i++) {
+                tmodel.removeRow(0);
+            }
+            for (int i = 0; i < clientes.size(); i++) {
+                tmodel.addRow(new Object[]{clientes.get(i).getCliente(),
+                clientes.get(i).getNombre_Empresa(),
+                clientes.get(i).getFecha_iniContrato(),
+                clientes.get(i).getDireccion(),
+                clientes.get(i).getTelefono(),
+                clientes.get(i).getNombre()});
+            }
+            jTable_cliente.setModel(tmodel);
+        } else if (jTabbedPane18.getSelectedIndex() == 2) {
+            tf_nuevo_Cliente_id.setText(Integer.toString(clientes.get(clientes.size() - 1).getCliente() + 1));
+        }
+    }//GEN-LAST:event_jTabbedPane18MouseClicked
+
+    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
+        // TODO add your handling code here:
+        Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "DELETE FROM cliente "
+                    + "WHERE idCliente=?";
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setInt(1, id_Cliente);
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Cliente Eliminado con exito!");
+                for (int i = 0; i < clientes.size(); i++) {
+                    if (clientes.get(i).getCliente()== id_Cliente) {
+                        clientes.remove(i);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+        } catch (Exception ex) {
+        }
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < clientes.size(); i++) {
+            modelo.addElement(clientes.get(i).getNombre_Empresa());
+        }
+        cb_borrar_cliente.setModel(modelo);
+        cb_editar_Cliente.setModel(modelo);
+        DefaultTableModel tmodel = (DefaultTableModel) jTable_cliente.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < clientes.size(); i++) {
+            tmodel.addRow(new Object[]{clientes.get(i).getCliente(),
+                clientes.get(i).getNombre_Empresa(),
+                clientes.get(i).getFecha_iniContrato(),
+                clientes.get(i).getDireccion(),
+                clientes.get(i).getTelefono(),
+                clientes.get(i).getNombre()});
+        }
+        jTable_cliente.setModel(tmodel);
+    }//GEN-LAST:event_jButton26ActionPerformed
+
+    private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
+        // TODO add your handling code here:
+        Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "INSERT INTO cliente (idCliente, telefono, direccion, nombrecontacto, fechainiciocontrato, nombreempresa)"
+                    + "VALUES (?,?,?,?,?,?)";
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setInt(1, Integer.parseInt(tf_nuevo_Cliente_id.getText()));
+            pst.setString(2, tf_nuevo_cliente_telefono.getText());
+            pst.setString(3, tf_nuevo_Cliente_direccion.getText());
+            pst.setString(4, tf_nuevo_Cliente_nombreContacto.getText());
+            SpinnerDateModel model = (SpinnerDateModel)Sp_nuevo_Cliente_fechaInicio.getModel();
+            pst.setDate(5, new java.sql.Date(model.getDate().getTime()));
+            pst.setString(6, tf_nuevo_Cliente_empresa.getText());
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Cliente Creadoo con exito!");
+                Cliente clie = new Cliente(Integer.parseInt(tf_nuevo_Cliente_id.getText()),
+                                           tf_nuevo_cliente_telefono.getText(),
+                                           tf_nuevo_Cliente_direccion.getText(),
+                                           tf_nuevo_Cliente_nombreContacto.getText(),
+                                           model.getDate(),
+                                           tf_nuevo_Cliente_empresa.getText());
+                clientes.add(clie);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+
+        } catch (Exception ex) {
+        }
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < productos.size(); i++) {
+            modelo.addElement(productos.get(i).getNombre());
+        }
+        cb_borrar_producto.setModel(modelo);
+        cb_editar_Producto.setModel(modelo);
+        DefaultTableModel tmodel = (DefaultTableModel) jTable_Producto.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < productos.size(); i++) {
+            tmodel.addRow(new Object[]{productos.get(i).getId_Produto(),
+                productos.get(i).getNombre(),
+                productos.get(i).getPrecio(),
+                productos.get(i).getCantidad(),
+                productos.get(i).getIdProveedor()});
+        }
+        jTable_Producto.setModel(tmodel);
+    }//GEN-LAST:event_jButton27ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2451,6 +2769,7 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb_borrar_proveedor;
     private javax.swing.JComboBox<String> cb_borrar_traileta;
     private javax.swing.JComboBox<String> cb_borrar_vehiculo;
+    private javax.swing.JComboBox<String> cb_editar_Cliente;
     private javax.swing.JComboBox<String> cb_editar_Producto;
     private javax.swing.JComboBox<String> cb_editar_Producto_proveedor;
     private javax.swing.JComboBox<String> cb_editar_conductor;
@@ -2637,14 +2956,13 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JLabel jl_PROVEEDOR;
     private javax.swing.JLabel jl_VEHICULO;
     private javax.swing.JTable tabla_proveedores;
-    private javax.swing.JComboBox<String> tf_editar_Cliente;
     private javax.swing.JTextField tf_editar_Cliente_direccion;
     private javax.swing.JTextField tf_editar_Cliente_empresa;
     private javax.swing.JTextField tf_editar_Cliente_id;
     private javax.swing.JTextField tf_editar_Cliente_nombreContacto;
-    private javax.swing.JTextField tf_editar_Cliente_telefono;
     private javax.swing.JTextField tf_editar_Producto_id;
     private javax.swing.JTextField tf_editar_Producto_nombre;
+    private javax.swing.JFormattedTextField tf_editar_cliente_telefono;
     private javax.swing.JTextField tf_editar_conductor_apellido;
     private javax.swing.JTextField tf_editar_conductor_direccion;
     private javax.swing.JTextField tf_editar_conductor_id;
@@ -2664,7 +2982,7 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JTextField tf_nuevo_Cliente_empresa;
     private javax.swing.JTextField tf_nuevo_Cliente_id;
     private javax.swing.JTextField tf_nuevo_Cliente_nombreContacto;
-    private javax.swing.JTextField tf_nuevo_Cliente_telefono;
+    private javax.swing.JFormattedTextField tf_nuevo_cliente_telefono;
     private javax.swing.JTextField tf_nuevo_conductor_apellido;
     private javax.swing.JTextField tf_nuevo_conductor_direccion;
     private javax.swing.JTextField tf_nuevo_conductor_id;
@@ -2688,8 +3006,9 @@ public class frame extends javax.swing.JFrame {
     ArrayList<Conductor> conductores = new ArrayList();
     ArrayList<Vehiculo> vehiculos = new ArrayList();
     ArrayList<Producto> productos = new ArrayList();
-    ArrayList<Cliente> cientes = new ArrayList();
+    ArrayList<Cliente> clientes = new ArrayList();
     ArrayList<Factura> facturas = new ArrayList();
     int id_Proveedor;
     int id_Producto;
+    int id_Cliente;
 }
