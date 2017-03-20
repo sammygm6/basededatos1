@@ -13,13 +13,11 @@ import Clases.Producto;
 import Clases.Proveedor;
 import Clases.Vehiculo;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerDateModel;
@@ -131,6 +129,59 @@ public class frame extends javax.swing.JFrame {
             }
         }
 
+        //toma los valores de la tabla de conductor
+        cn = new Conn();// Obtiene la conexion
+        rs = null;
+        stmt = null;
+        i = 0;
+        /*Fin declaracion de variables*/
+        try {
+            /*Crear la conexion a la base de datos */
+            cn.mkConnRe();
+            if (cn == null) {
+                JOptionPane.showMessageDialog(rootPane, "Error de Conexion a la Base de Datos ");
+            } else {
+                stmt = cn.conn.createStatement();
+                rs = stmt.executeQuery("select idConductor, direccion, nombres, apellidos, localizador, salario, edad, viaticos, telefono \n"
+                        + "FROM transportecarmen.conductor c \n"
+                        + ";");
+                /*Carga los datos de la base de datos a las propiedades de la clase*/
+                while (rs.next()) {
+                    Conductor con = new Conductor(rs.getInt("idConductor"),
+                            rs.getString("direccion"),
+                            rs.getString("nombres"),
+                            rs.getString("apellidos"),
+                            rs.getString("localizador"),
+                            rs.getDouble("salario"),
+                            rs.getInt("edad"),
+                            rs.getDouble("viaticos"),
+                            rs.getString("telefono"));
+                    conductores.add(con);
+                    i++;
+                }
+                if (i == 0) {
+                    //JOptionPane.showMessageDialog(rootPane, "Error la consulta no devolvio registros");
+                } else {
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex + "1");
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (cn.conn != null) {
+                    cn.conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, e + "2");
+            }
+        }
+        
         //toma los valores de la tabla de cliente
         cn = new Conn();// Obtiene la conexion
         rs = null;
@@ -290,8 +341,8 @@ public class frame extends javax.swing.JFrame {
         jLabel179 = new javax.swing.JLabel();
         tf_editar_Cliente_empresa = new javax.swing.JTextField();
         tf_editar_Cliente_nombreContacto = new javax.swing.JTextField();
-        tf_editar_cliente_telefono = new javax.swing.JFormattedTextField();
         jLabel191 = new javax.swing.JLabel();
+        tf_editar_cliente_telefono = new javax.swing.JTextField();
         jLabel192 = new javax.swing.JLabel();
         jLabel193 = new javax.swing.JLabel();
         jLabel180 = new javax.swing.JLabel();
@@ -313,10 +364,10 @@ public class frame extends javax.swing.JFrame {
         tf_nuevo_Cliente_direccion = new javax.swing.JTextField();
         Sp_nuevo_Cliente_fechaInicio = new javax.swing.JSpinner();
         tf_nuevo_Cliente_empresa = new javax.swing.JTextField();
-        tf_nuevo_cliente_telefono = new javax.swing.JFormattedTextField();
         jLabel199 = new javax.swing.JLabel();
         jLabel200 = new javax.swing.JLabel();
         tf_nuevo_Cliente_nombreContacto = new javax.swing.JTextField();
+        tf_nuevo_Cliente_telefono = new javax.swing.JTextField();
         jLabel187 = new javax.swing.JLabel();
         jLabel188 = new javax.swing.JLabel();
         jLabel189 = new javax.swing.JLabel();
@@ -403,11 +454,13 @@ public class frame extends javax.swing.JFrame {
         jLabel216 = new javax.swing.JLabel();
         tf_editar_conductor_nombre = new javax.swing.JTextField();
         tf_editar_conductor_apellido = new javax.swing.JTextField();
-        tf_editar_conductor_telefono = new javax.swing.JTextField();
+        tf_editar_conductor_localizador = new javax.swing.JTextField();
         jLabel217 = new javax.swing.JLabel();
         jLabel232 = new javax.swing.JLabel();
         jLabel233 = new javax.swing.JLabel();
         jLabel234 = new javax.swing.JLabel();
+        jLabel226 = new javax.swing.JLabel();
+        tf_editar_conductor_telefono = new javax.swing.JTextField();
         Sp_editar_conductor_edad = new javax.swing.JSpinner();
         Sp_editar_conductor_salario = new javax.swing.JSpinner();
         jLabel218 = new javax.swing.JLabel();
@@ -434,6 +487,8 @@ public class frame extends javax.swing.JFrame {
         jLabel243 = new javax.swing.JLabel();
         jLabel244 = new javax.swing.JLabel();
         tf_nuevo_conductor_telefono = new javax.swing.JTextField();
+        jLabel252 = new javax.swing.JLabel();
+        tf_nuevo_conductor_localizador = new javax.swing.JTextField();
         Sp_nuevo_conductor_viaticos = new javax.swing.JSpinner();
         Sp_nuevo_conductor_salario = new javax.swing.JSpinner();
         jLabel245 = new javax.swing.JLabel();
@@ -1002,18 +1057,13 @@ public class frame extends javax.swing.JFrame {
         tf_editar_Cliente_nombreContacto.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel25.add(tf_editar_Cliente_nombreContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 230, 250, -1));
 
-        try {
-            tf_editar_cliente_telefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        tf_editar_cliente_telefono.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jPanel25.add(tf_editar_cliente_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 120, 230, 40));
-
         jLabel191.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel191.setForeground(new java.awt.Color(204, 204, 204));
         jLabel191.setText("Nombre de ");
         jPanel25.add(jLabel191, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 200, 150, -1));
+
+        tf_editar_cliente_telefono.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPanel25.add(tf_editar_cliente_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 120, 250, -1));
 
         jLabel192.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel192.setForeground(new java.awt.Color(204, 204, 204));
@@ -1039,11 +1089,11 @@ public class frame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "NOMBRE EMPRESA", "FECHA INICIO CONTRATO", "DIRECCION", "TELEFONO", "NOMBRE DE CONTACTO"
+                "ID", "EMPRESA", "FECHA DE INICIO", "DIRECCION", "TELEFONO", "NOMBRE DE CONTACTO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -1143,14 +1193,6 @@ public class frame extends javax.swing.JFrame {
         tf_nuevo_Cliente_empresa.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel29.add(tf_nuevo_Cliente_empresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(417, 180, 250, -1));
 
-        try {
-            tf_nuevo_cliente_telefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        tf_nuevo_cliente_telefono.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jPanel29.add(tf_nuevo_cliente_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 120, 230, 40));
-
         jLabel199.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel199.setForeground(new java.awt.Color(204, 204, 204));
         jLabel199.setText("Nombre de ");
@@ -1163,6 +1205,9 @@ public class frame extends javax.swing.JFrame {
 
         tf_nuevo_Cliente_nombreContacto.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel29.add(tf_nuevo_Cliente_nombreContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 230, 250, -1));
+
+        tf_nuevo_Cliente_telefono.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPanel29.add(tf_nuevo_Cliente_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 120, 250, -1));
 
         jLabel187.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dark-grey-background-pattern-i7.jpg"))); // NOI18N
         jPanel29.add(jLabel187, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1210, 520));
@@ -1523,6 +1568,11 @@ public class frame extends javax.swing.JFrame {
         jTabbedPane20.setBackground(new java.awt.Color(51, 51, 51));
         jTabbedPane20.setForeground(new java.awt.Color(0, 204, 204));
         jTabbedPane20.setFont(new java.awt.Font("Rockwell Condensed", 0, 48)); // NOI18N
+        jTabbedPane20.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane20MouseClicked(evt);
+            }
+        });
 
         jPanel33.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1558,10 +1608,25 @@ public class frame extends javax.swing.JFrame {
         jButton31.setForeground(new java.awt.Color(153, 153, 0));
         jButton31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/compose-64.png"))); // NOI18N
         jButton31.setText("Editar");
+        jButton31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton31ActionPerformed(evt);
+            }
+        });
         jPanel33.add(jButton31, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, 241, 76));
 
         cb_editar_conductor.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jPanel33.add(cb_editar_conductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 43, 227, -1));
+        cb_editar_conductor.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_editar_conductorItemStateChanged(evt);
+            }
+        });
+        cb_editar_conductor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_editar_conductorActionPerformed(evt);
+            }
+        });
+        jPanel33.add(cb_editar_conductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 43, 300, -1));
 
         Sp_editar_conductor_viaticos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Sp_editar_conductor_viaticos.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
@@ -1569,7 +1634,7 @@ public class frame extends javax.swing.JFrame {
 
         jLabel216.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel216.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel216.setText("Seleccione Cliente");
+        jLabel216.setText("Seleccione Conductor");
         jPanel33.add(jLabel216, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 48, -1, -1));
 
         tf_editar_conductor_nombre.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -1578,13 +1643,13 @@ public class frame extends javax.swing.JFrame {
         tf_editar_conductor_apellido.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel33.add(tf_editar_conductor_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 250, -1));
 
-        tf_editar_conductor_telefono.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jPanel33.add(tf_editar_conductor_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 230, 250, -1));
+        tf_editar_conductor_localizador.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPanel33.add(tf_editar_conductor_localizador, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 290, 250, -1));
 
         jLabel217.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel217.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel217.setText("Telefono:");
-        jPanel33.add(jLabel217, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 220, 130, 40));
+        jLabel217.setText("Localizador:");
+        jPanel33.add(jLabel217, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 290, 160, 40));
 
         jLabel232.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel232.setForeground(new java.awt.Color(204, 204, 204));
@@ -1601,6 +1666,14 @@ public class frame extends javax.swing.JFrame {
         jLabel234.setText("Salario:");
         jPanel33.add(jLabel234, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 110, 140, -1));
 
+        jLabel226.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
+        jLabel226.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel226.setText("Telefono:");
+        jPanel33.add(jLabel226, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 220, 130, 40));
+
+        tf_editar_conductor_telefono.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPanel33.add(tf_editar_conductor_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 230, 250, -1));
+
         Sp_editar_conductor_edad.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Sp_editar_conductor_edad.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(15), Integer.valueOf(15), null, Integer.valueOf(1)));
         jPanel33.add(Sp_editar_conductor_edad, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 250, -1));
@@ -1616,22 +1689,29 @@ public class frame extends javax.swing.JFrame {
 
         jPanel34.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable_conductor.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTable_conductor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTable_conductor.setForeground(new java.awt.Color(0, 0, 102));
         jTable_conductor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nombres", "Apellidos", "Edad", "Direccion", "Salario", "Viaticos", "Telefono"
+                "ID", "Nombres", "Apellidos", "Edad", "Direccion", "Salario", "Viaticos", "Telefono", "Localizador"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane5.setViewportView(jTable_conductor);
@@ -1648,7 +1728,7 @@ public class frame extends javax.swing.JFrame {
 
         jLabel235.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel235.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel235.setText("Seleccione Cliente:");
+        jLabel235.setText("Seleccione Conductor:");
         jPanel34.add(jLabel235, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, -1, -1));
 
         cb_borrar_conductor.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -1659,6 +1739,11 @@ public class frame extends javax.swing.JFrame {
         jButton32.setForeground(new java.awt.Color(0, 102, 102));
         jButton32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/-_delete_minus_cancel_close-64.png"))); // NOI18N
         jButton32.setText("Borrar");
+        jButton32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton32ActionPerformed(evt);
+            }
+        });
         jPanel34.add(jButton32, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 410, 241, 76));
 
         jLabel236.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Dark-Gray-Background-for-Free-Download.jpg"))); // NOI18N
@@ -1673,6 +1758,11 @@ public class frame extends javax.swing.JFrame {
         jButton33.setForeground(new java.awt.Color(0, 153, 153));
         jButton33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/07_plus-64.png"))); // NOI18N
         jButton33.setText("Crear");
+        jButton33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton33ActionPerformed(evt);
+            }
+        });
         jPanel35.add(jButton33, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 400, -1, -1));
 
         jLabel237.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
@@ -1734,6 +1824,14 @@ public class frame extends javax.swing.JFrame {
 
         tf_nuevo_conductor_telefono.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel35.add(tf_nuevo_conductor_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 180, 250, -1));
+
+        jLabel252.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
+        jLabel252.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel252.setText("Localizador:");
+        jPanel35.add(jLabel252, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 240, 150, 40));
+
+        tf_nuevo_conductor_localizador.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPanel35.add(tf_nuevo_conductor_localizador, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 250, 250, -1));
 
         Sp_nuevo_conductor_viaticos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Sp_nuevo_conductor_viaticos.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
@@ -2027,6 +2125,29 @@ public class frame extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_PROVEEDORMouseExited
 
     private void jl_CONDUCTORMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_CONDUCTORMouseClicked
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < conductores.size(); i++) {
+            modelo.addElement(conductores.get(i).getNombre());
+        }
+        DefaultTableModel tmodel = (DefaultTableModel) jTable_conductor.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < conductores.size(); i++) {
+            tmodel.addRow(new Object[]{conductores.get(i).getId_conductor(),
+                conductores.get(i).getNombre(),
+                conductores.get(i).getApellido(),
+                conductores.get(i).getEdad(),
+                conductores.get(i).getDireccion(),
+                conductores.get(i).getSueldo(),
+                conductores.get(i).getViaticos(),
+                conductores.get(i).getTelefono(),
+                conductores.get(i).getLocalizador()});
+        }
+        jTable_conductor.setModel(tmodel);
+        cb_borrar_conductor.setModel(modelo);
+        cb_editar_conductor.setModel(modelo);
         jd_Conductor.setTitle("Conductor");
         jd_Conductor.pack();
         jd_Conductor.setModal(true);
@@ -2153,7 +2274,6 @@ public class frame extends javax.swing.JFrame {
                 tf_editar_proveedor_correo.setText(proveedores.get(i).getEmail());
             }
         }
-
     }//GEN-LAST:event_cb_editar_proveedorItemStateChanged
 
     private void jTabbedPane3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane3MouseClicked
@@ -2261,7 +2381,7 @@ public class frame extends javax.swing.JFrame {
             pst.setString(6, tf_nuevo_proveedor_correo.getText());
             int nu = pst.executeUpdate();
             if (nu > 0) {
-                JOptionPane.showMessageDialog(rootPane, "Proveedor Creadoo con exito!");
+                JOptionPane.showMessageDialog(rootPane, "Proveedor Creado con exito!");
                 Proveedor p = new Proveedor(Integer.parseInt(tf_nuevo_proveedor_id.getText()),
                         tf_nuevo_proveedor_direccion.getText(),
                         tf_nuevo_proveedor_telefono.getText(),
@@ -2295,6 +2415,11 @@ public class frame extends javax.swing.JFrame {
                 proveedores.get(i).getEmail()});
         }
         tabla_proveedores.setModel(tmodel);
+        tf_nuevo_proveedor_direccion.setText("");
+        tf_nuevo_proveedor_telefono.setText("");
+        tf_nuevo_proveedor_nombre.setText("");
+        tf_nuevo_proveedor_pais.setText("");
+        tf_nuevo_proveedor_correo.setText("");
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void cb_editar_ProductoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_editar_ProductoItemStateChanged
@@ -2472,7 +2597,7 @@ public class frame extends javax.swing.JFrame {
             pst.setInt(5, idNuevoProveedor);
             int nu = pst.executeUpdate();
             if (nu > 0) {
-                JOptionPane.showMessageDialog(rootPane, "Producto Creadoo con exito!");
+                JOptionPane.showMessageDialog(rootPane, "Producto Creado con exito!");
                 Producto pro = new Producto(Integer.parseInt(tf_nuevo_producto_id.getText()),
                         Double.parseDouble(Sp_nuevo_producto_Tcantidad.getValue().toString()),
                         tf_nuevo_producto_nombre.getText(),
@@ -2505,7 +2630,236 @@ public class frame extends javax.swing.JFrame {
                 productos.get(i).getIdProveedor()});
         }
         jTable_Producto.setModel(tmodel);
+        Sp_nuevo_producto_Tcantidad.setValue(0);
+        tf_nuevo_producto_nombre.setText("");
+        Sp_nuevo_producto_precio.setValue(0);
     }//GEN-LAST:event_jButton23ActionPerformed
+
+    private void cb_editar_conductorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_editar_conductorItemStateChanged
+        for (int i = 0; i < conductores.size(); i++) {
+            if (conductores.get(i).getNombre().equals(cb_editar_conductor.getSelectedItem().toString())) {
+                id_conductor = conductores.get(i).getId_conductor();
+                tf_editar_conductor_id.setText(Integer.toString(id_conductor));
+                tf_editar_conductor_nombre.setText(conductores.get(i).getNombre());
+                tf_editar_conductor_apellido.setText(conductores.get(i).getApellido());
+                Sp_editar_conductor_edad.setValue(conductores.get(i).getEdad());
+                tf_editar_conductor_direccion.setText(conductores.get(i).getDireccion());
+                Sp_editar_conductor_salario.setValue(conductores.get(i).getSueldo());
+                Sp_editar_conductor_viaticos.setValue(conductores.get(i).getViaticos());
+                tf_editar_conductor_telefono.setText(conductores.get(i).getTelefono());
+                tf_editar_conductor_localizador.setText(conductores.get(i).getLocalizador());
+            }
+        }
+    }//GEN-LAST:event_cb_editar_conductorItemStateChanged
+
+    private void cb_editar_conductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_editar_conductorActionPerformed
+        // TODO add your handling code here:
+        for (int i = 0; i < conductores.size(); i++) {
+            if (conductores.get(i).getNombre().equals(cb_editar_conductor.getSelectedItem().toString())) {
+                id_conductor = conductores.get(i).getId_conductor();
+                tf_editar_conductor_id.setText(Integer.toString(id_conductor));
+                tf_editar_conductor_nombre.setText(conductores.get(i).getNombre());
+                tf_editar_conductor_apellido.setText(conductores.get(i).getApellido());
+                Sp_editar_conductor_edad.setValue(conductores.get(i).getEdad());
+                tf_editar_conductor_direccion.setText(conductores.get(i).getDireccion());
+                Sp_editar_conductor_salario.setValue(conductores.get(i).getSueldo());
+                Sp_editar_conductor_viaticos.setValue(conductores.get(i).getViaticos());
+                tf_editar_conductor_telefono.setText(conductores.get(i).getTelefono());
+                tf_editar_conductor_localizador.setText(conductores.get(i).getLocalizador());
+            }
+        }
+    }//GEN-LAST:event_cb_editar_conductorActionPerformed
+
+    private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
+        // TODO add your handling code here:
+        Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "UPDATE conductor SET  direccion=?, nombres=?, apellidos=?, localizador=?, salario=?, edad=?, viaticos=?, telefono=?"
+                    + "WHERE idConductor=" + id_conductor;
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setString(1, tf_editar_conductor_direccion.getText());
+            pst.setString(2, tf_editar_conductor_nombre.getText());
+            pst.setString(3, tf_editar_conductor_apellido.getText());
+            pst.setString(4, tf_editar_conductor_localizador.getText());
+            pst.setDouble(5, Double.parseDouble(Sp_editar_conductor_salario.getValue().toString()));
+            pst.setInt(6, Integer.parseInt(Sp_editar_conductor_edad.getValue().toString()));
+            pst.setDouble(7, Double.parseDouble(Sp_editar_conductor_viaticos.getValue().toString()));
+            pst.setString(8, tf_editar_conductor_telefono.getText());
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Conductor Actualizado con exito!");
+                for (int i = 0; i < conductores.size(); i++) {
+                    if (conductores.get(i).getId_conductor()== id_conductor) {
+                        conductores.get(i).setDireccion(tf_editar_conductor_direccion.getText());
+                        conductores.get(i).setNombre(tf_editar_conductor_nombre.getText());
+                        conductores.get(i).setApellido(tf_editar_conductor_apellido.getText());
+                        conductores.get(i).setLocalizador(tf_editar_conductor_localizador.getText());
+                        conductores.get(i).setSueldo(Double.parseDouble(Sp_editar_conductor_salario.getValue().toString()));
+                        conductores.get(i).setEdad(Integer.parseInt(Sp_editar_conductor_edad.getValue().toString()));
+                        conductores.get(i).setViaticos(Double.parseDouble(Sp_editar_conductor_viaticos.getValue().toString()));
+                        conductores.get(i).setTelefono(tf_editar_conductor_telefono.getText());
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+        } catch (Exception ex) {
+        }
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < conductores.size(); i++) {
+            modelo.addElement(conductores.get(i).getNombre());
+        }
+        cb_borrar_conductor.setModel(modelo);
+        cb_editar_conductor.setModel(modelo);
+    }//GEN-LAST:event_jButton31ActionPerformed
+
+    private void jTabbedPane20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane20MouseClicked
+        // TODO add your handling code here:
+        if (jTabbedPane20.getSelectedIndex() == 1) {
+            DefaultTableModel tmodel = (DefaultTableModel) jTable_conductor.getModel();
+            int fila = tmodel.getRowCount();
+            for (int i = 1; i <= fila; i++) {
+                tmodel.removeRow(0);
+            }
+            for (int i = 0; i < conductores.size(); i++) {
+                tmodel.addRow(new Object[]{conductores.get(i).getId_conductor(),
+                conductores.get(i).getNombre(),
+                conductores.get(i).getApellido(),
+                conductores.get(i).getEdad(),
+                conductores.get(i).getDireccion(),
+                conductores.get(i).getSueldo(),
+                conductores.get(i).getViaticos(),
+                conductores.get(i).getTelefono(),
+                conductores.get(i).getLocalizador()});
+            }
+            jTable_conductor.setModel(tmodel);
+        } else if (jTabbedPane20.getSelectedIndex() == 2) {
+            tf_nuevo_conductor_id.setText(Integer.toString(conductores.get(conductores.size() - 1).getId_conductor()+ 1));
+        }
+    }//GEN-LAST:event_jTabbedPane20MouseClicked
+
+    private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
+        // TODO add your handling code here:
+        Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "DELETE FROM conductor "
+                    + "WHERE idConductor=?";
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setInt(1, id_conductor);
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Proveedor Eliminado con exito!");
+                for (int i = 0; i < conductores.size(); i++) {
+                    if (conductores.get(i).getId_conductor() == id_conductor) {
+                        conductores.remove(i);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+        } catch (Exception ex) {
+        }
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < conductores.size(); i++) {
+            modelo.addElement(conductores.get(i).getNombre());
+        }
+        cb_borrar_conductor.setModel(modelo);
+        cb_editar_conductor.setModel(modelo);
+        DefaultTableModel tmodel = (DefaultTableModel) jTable_conductor.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < conductores.size(); i++) {
+            tmodel.addRow(new Object[]{conductores.get(i).getId_conductor(),
+                conductores.get(i).getNombre(),
+                conductores.get(i).getApellido(),
+                conductores.get(i).getEdad(),
+                conductores.get(i).getDireccion(),
+                conductores.get(i).getSueldo(),
+                conductores.get(i).getViaticos(),
+                conductores.get(i).getTelefono(),
+                conductores.get(i).getLocalizador()});
+        }
+        jTable_conductor.setModel(tmodel);
+    }//GEN-LAST:event_jButton32ActionPerformed
+
+    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
+        // TODO add your handling code here:
+        Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "INSERT INTO conductor (idConductor, direccion, nombres, apellidos, localizador, salario, edad, viaticos, telefono)"
+                    + "VALUES (?,?,?,?,?,?,?,?,?)";
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setInt(1, Integer.parseInt(tf_nuevo_conductor_id.getText()));
+            pst.setString(2, tf_nuevo_conductor_direccion.getText());
+            pst.setString(3, tf_nuevo_conductor_nombre.getText());
+            pst.setString(4, tf_nuevo_conductor_apellido.getText());
+            pst.setString(5, tf_nuevo_conductor_localizador.getText());
+            pst.setDouble(6, Double.parseDouble(Sp_nuevo_conductor_salario.getValue().toString()));
+            pst.setInt(7, Integer.parseInt(Sp_nuevo_conductor_edad.getValue().toString()));
+            pst.setDouble(8, Double.parseDouble(Sp_nuevo_conductor_viaticos.getValue().toString()));
+            pst.setString(9, tf_nuevo_conductor_telefono.getText());
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Conductor Creado con exito!");
+                Conductor con = new Conductor(Integer.parseInt(tf_nuevo_conductor_id.getText()),
+                                              tf_nuevo_conductor_direccion.getText(),
+                                              tf_nuevo_conductor_nombre.getText(),
+                                              tf_nuevo_conductor_apellido.getText(),
+                                              tf_nuevo_conductor_localizador.getText(),
+                                              Double.parseDouble(Sp_nuevo_conductor_salario.getValue().toString()),
+                                              Integer.parseInt(Sp_nuevo_conductor_edad.getValue().toString()),
+                                              Double.parseDouble(Sp_nuevo_conductor_viaticos.getValue().toString()),
+                                              tf_nuevo_conductor_telefono.getText());
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+
+        } catch (Exception ex) {
+        }
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (int i = 0; i < conductores.size(); i++) {
+            modelo.addElement(conductores.get(i).getNombre());
+        }
+        cb_borrar_conductor.setModel(modelo);
+        cb_editar_conductor.setModel(modelo);
+        DefaultTableModel tmodel = (DefaultTableModel) jTable_conductor.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < conductores.size(); i++) {
+            tmodel.addRow(new Object[]{conductores.get(i).getId_conductor(),
+                conductores.get(i).getNombre(),
+                conductores.get(i).getApellido(),
+                conductores.get(i).getEdad(),
+                conductores.get(i).getDireccion(),
+                conductores.get(i).getSueldo(),
+                conductores.get(i).getViaticos(),
+                conductores.get(i).getTelefono(),
+                conductores.get(i).getLocalizador()});
+        }
+        jTable_conductor.setModel(tmodel);
+        tf_nuevo_conductor_id.setText("");
+        tf_nuevo_conductor_direccion.setText("");
+        tf_nuevo_conductor_nombre.setText("");
+        tf_nuevo_conductor_apellido.setText("");
+        tf_nuevo_conductor_localizador.setText("");
+        Sp_nuevo_conductor_salario.setValue(0);
+        Sp_nuevo_conductor_edad.setValue(20);
+        Sp_nuevo_conductor_viaticos.setValue(0);
+        tf_nuevo_conductor_telefono.setText("");
+    }//GEN-LAST:event_jButton33ActionPerformed
 
     private void cb_editar_ClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_editar_ClienteItemStateChanged
         // TODO add your handling code here:
@@ -2662,7 +3016,7 @@ public class frame extends javax.swing.JFrame {
                     + "VALUES (?,?,?,?,?,?)";
             PreparedStatement pst = cc.prepareStatement(sql);
             pst.setInt(1, Integer.parseInt(tf_nuevo_Cliente_id.getText()));
-            pst.setString(2, tf_nuevo_cliente_telefono.getText());
+            pst.setString(2, tf_nuevo_Cliente_telefono.getText());
             pst.setString(3, tf_nuevo_Cliente_direccion.getText());
             pst.setString(4, tf_nuevo_Cliente_nombreContacto.getText());
             SpinnerDateModel model = (SpinnerDateModel)Sp_nuevo_Cliente_fechaInicio.getModel();
@@ -2672,7 +3026,7 @@ public class frame extends javax.swing.JFrame {
             if (nu > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Cliente Creadoo con exito!");
                 Cliente clie = new Cliente(Integer.parseInt(tf_nuevo_Cliente_id.getText()),
-                                           tf_nuevo_cliente_telefono.getText(),
+                                           tf_nuevo_Cliente_telefono.getText(),
                                            tf_nuevo_Cliente_direccion.getText(),
                                            tf_nuevo_Cliente_nombreContacto.getText(),
                                            model.getDate(),
@@ -2704,6 +3058,10 @@ public class frame extends javax.swing.JFrame {
                 productos.get(i).getIdProveedor()});
         }
         jTable_Producto.setModel(tmodel);
+        tf_nuevo_Cliente_telefono.setText("");
+        tf_nuevo_Cliente_direccion.setText("");
+        tf_nuevo_Cliente_nombreContacto.setText("");
+        tf_nuevo_Cliente_empresa.setText("");
     }//GEN-LAST:event_jButton27ActionPerformed
 
     /**
@@ -2858,6 +3216,7 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel223;
     private javax.swing.JLabel jLabel224;
     private javax.swing.JLabel jLabel225;
+    private javax.swing.JLabel jLabel226;
     private javax.swing.JLabel jLabel227;
     private javax.swing.JLabel jLabel232;
     private javax.swing.JLabel jLabel233;
@@ -2879,6 +3238,7 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel249;
     private javax.swing.JLabel jLabel250;
     private javax.swing.JLabel jLabel251;
+    private javax.swing.JLabel jLabel252;
     private javax.swing.JLabel jLabel253;
     private javax.swing.JLabel jLabel254;
     private javax.swing.JLabel jLabel255;
@@ -2962,10 +3322,11 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JTextField tf_editar_Cliente_nombreContacto;
     private javax.swing.JTextField tf_editar_Producto_id;
     private javax.swing.JTextField tf_editar_Producto_nombre;
-    private javax.swing.JFormattedTextField tf_editar_cliente_telefono;
+    private javax.swing.JTextField tf_editar_cliente_telefono;
     private javax.swing.JTextField tf_editar_conductor_apellido;
     private javax.swing.JTextField tf_editar_conductor_direccion;
     private javax.swing.JTextField tf_editar_conductor_id;
+    private javax.swing.JTextField tf_editar_conductor_localizador;
     private javax.swing.JTextField tf_editar_conductor_nombre;
     private javax.swing.JTextField tf_editar_conductor_telefono;
     private javax.swing.JTextField tf_editar_proveedor_correo;
@@ -2982,10 +3343,11 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JTextField tf_nuevo_Cliente_empresa;
     private javax.swing.JTextField tf_nuevo_Cliente_id;
     private javax.swing.JTextField tf_nuevo_Cliente_nombreContacto;
-    private javax.swing.JFormattedTextField tf_nuevo_cliente_telefono;
+    private javax.swing.JTextField tf_nuevo_Cliente_telefono;
     private javax.swing.JTextField tf_nuevo_conductor_apellido;
     private javax.swing.JTextField tf_nuevo_conductor_direccion;
     private javax.swing.JTextField tf_nuevo_conductor_id;
+    private javax.swing.JTextField tf_nuevo_conductor_localizador;
     private javax.swing.JTextField tf_nuevo_conductor_nombre;
     private javax.swing.JTextField tf_nuevo_conductor_telefono;
     private javax.swing.JTextField tf_nuevo_producto_id;
@@ -3011,4 +3373,5 @@ public class frame extends javax.swing.JFrame {
     int id_Proveedor;
     int id_Producto;
     int id_Cliente;
+    int id_conductor;
 }

@@ -19,12 +19,12 @@ public class Conductor {
     int edad;
     double viaticos;
     String telefono;
-    int id_Producto;
 
     public Conductor() {
     }
 
-    public Conductor(int id_conductor, String direccion, String nombre, String apellido, String localizador, double sueldo, int edad, double viaticos, String telefono, int id_Producto) {
+    public Conductor(int id_conductor, String direccion, String nombre,
+            String apellido, String localizador, double sueldo, int edad, double viaticos, String telefono) {
         this.id_conductor = id_conductor;
         this.direccion = direccion;
         this.nombre = nombre;
@@ -34,7 +34,6 @@ public class Conductor {
         this.edad = edad;
         this.viaticos = viaticos;
         this.telefono = telefono;
-        this.id_Producto = id_Producto;
     }
 
     public int getId_conductor() {
@@ -109,16 +108,8 @@ public class Conductor {
         this.telefono = telefono;
     }
 
-    public int getId_Producto() {
-        return id_Producto;
-    }
-
-    public void setId_Producto(int id_Producto) {
-        this.id_Producto = id_Producto;
-    }
-
     @Override
     public String toString() {
-        return "Conductor{" + "id_conductor=" + id_conductor + ", direccion=" + direccion + ", nombre=" + nombre + ", apellido=" + apellido + ", localizador=" + localizador + ", sueldo=" + sueldo + ", edad=" + edad + ", viaticos=" + viaticos + ", telefono=" + telefono + ", id_Producto=" + id_Producto + '}';
+        return "Conductor{" + "id_conductor=" + id_conductor + ", direccion=" + direccion + ", nombre=" + nombre + ", apellido=" + apellido + ", localizador=" + localizador + ", sueldo=" + sueldo + ", edad=" + edad + ", viaticos=" + viaticos + ", telefono=" + telefono + '}';
     }
 }
