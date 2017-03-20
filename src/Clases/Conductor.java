@@ -24,7 +24,8 @@ public class Conductor {
     public Conductor() {
     }
 
-    public Conductor(int id_conductor, String direccion, String nombre, String apellido, String localizador, double sueldo, int edad, double viaticos, String telefono, int id_Producto) {
+    public Conductor(int id_conductor, String direccion, String nombre,
+            String apellido, String localizador, double sueldo, int edad, double viaticos, String telefono, int id_Producto) {
         this.id_conductor = id_conductor;
         this.direccion = direccion;
         this.nombre = nombre;
