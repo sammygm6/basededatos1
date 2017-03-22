@@ -3227,6 +3227,38 @@ public class frame extends javax.swing.JFrame {
                 break;
             }
         }
+        /////////////////////////////////QUERY//////////////////////////////////////////////////////////////////////
+        /*
+        sql = "INSERT INTO vehiculo (numeroPlaca, año, marca, tipocombustible,"
+                    + "modelo, color, capacidadcombustible, kilometraje)"
+                    + "VALUES (?,?,?,?,?,?,?,?)";
+        */
+        Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "UPDATE vehiculo SET año=?, marca=?, tipocombustible=?, modelo=?, color=?, "
+                    + "capacidadcombustible=?, kilometraje=? "
+                    + "WHERE idCliente=" + Integer.parseInt(this.tf_editar_vehiculo_placa.getText());
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setString(1, this.Sp_editar_vehiculo_año.getValue().toString());
+            pst.setString(2, this.tf_editar_vehiculo_marca.getText());
+            pst.setString(3, this.cb_editar_vehiculo_tipoCombu.getSelectedItem().toString());
+            pst.setString(4, this.tf_editar_vehiculo_modelo.getText());
+            pst.setString(5, this.tf_editar_vehiculo_color.getText());
+            pst.setInt(6, Integer.parseInt(this.Sp_editar_vehiculo_capaCombus.getValue().toString()));
+            pst.setInt(7, Integer.parseInt(this.Sp_editar_vehiculo_kilometraje.getValue().toString()));
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Cliente Actualizado con exito!");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex);
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
         this.tf_editar_vehiculo_localizador.setText("");
         this.tf_editar_vehiculo_marca.setText("");
         this.tf_editar_vehiculo_modelo.setText("");
@@ -3329,6 +3361,24 @@ public class frame extends javax.swing.JFrame {
             this.cb_borrar_vehiculo.addItem(Integer.toString(this.vehiculos.get(i).getNumero_placa()));//actualizando cb al mismo tiempo jeje
         }
         this.jTable_vehiculo.setModel(tmodel);
+        ////////////////////////////////////////////QUERY/////////////////////////////////////////////////////
+         Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "DELETE FROM vehiculo "
+                    + "WHERE idCliente=?";
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setInt(1, id_vehiculo_seleccionado);
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Cliente Eliminado con exito!");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+        } catch (Exception ex) {
+        }
     }//GEN-LAST:event_jButton29MouseClicked
 
     private void jButton35MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton35MouseClicked
@@ -3365,6 +3415,7 @@ public class frame extends javax.swing.JFrame {
         //public Vehiculo(int numero_placa, String año, String marca,
                 //String tipo_combustible, String modelo, String color, 
                 //double capa_combustible, double kilomet
+        ////////////////////////////////////////////////////////////////////////////////
         int numero_placa = Integer.parseInt(this.tf_nuevo_vehiculo_placa.getText());
         String año = this.Sp_nuevo_vehiculo_año.getValue().toString();
         String marca = this.tf_nuevo_vehiculo_marca.getText();
@@ -3383,6 +3434,33 @@ public class frame extends javax.swing.JFrame {
         Vehiculo nuevo_vehiculo = new Vehiculo(numero_placa,año, marca,tipo_combustible,
             modelo,color,capa_combustible, kilomet);
         this.vehiculos.add(nuevo_vehiculo);
+        //////////////////////////////////QUERY////////////////////////////////////////////////
+        Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "INSERT INTO vehiculo (numeroPlaca, año, marca, tipocombustible,"
+                    + "modelo, color, capacidadcombustible, kilometraje)"
+                    + "VALUES (?,?,?,?,?,?,?,?)";
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setInt(1, numero_placa);
+            pst.setString(2, año);
+            pst.setString(3, marca);
+            pst.setString(4, tipo_combustible);
+            pst.setString(5, modelo);
+            pst.setString(6, color);
+            pst.setInt(7, (int)capa_combustible);
+            pst.setInt(8, (int)kilomet);
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Cliente Creadoo con exito!");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+
+        } catch (Exception ex) {
+        }
     }//GEN-LAST:event_jButton30MouseClicked
 
     private void jButton36MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton36MouseClicked
