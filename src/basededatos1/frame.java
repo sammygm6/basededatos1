@@ -1245,7 +1245,6 @@ public class frame extends javax.swing.JFrame {
         jLabel201.setText("Numero de Placa:");
         jPanel30.add(jLabel201, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 210, -1));
 
-        tf_editar_vehiculo_placa.setEditable(false);
         tf_editar_vehiculo_placa.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel30.add(tf_editar_vehiculo_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 250, -1));
 
@@ -1278,7 +1277,7 @@ public class frame extends javax.swing.JFrame {
         jPanel30.add(cb_editar_vehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 43, 227, -1));
 
         Sp_editar_vehiculo_tm.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Sp_editar_vehiculo_tm.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
+        Sp_editar_vehiculo_tm.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(1.0d)));
         jPanel30.add(Sp_editar_vehiculo_tm, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 360, 150, -1));
 
         jLabel205.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
@@ -1329,7 +1328,7 @@ public class frame extends javax.swing.JFrame {
         jPanel30.add(tf_editar_vehiculo_localizador, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 230, 260, -1));
 
         Sp_editar_vehiculo_kilometraje.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Sp_editar_vehiculo_kilometraje.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
+        Sp_editar_vehiculo_kilometraje.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(1.0d)));
         jPanel30.add(Sp_editar_vehiculo_kilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, 250, -1));
 
         jLabel250.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
@@ -3024,7 +3023,7 @@ public class frame extends javax.swing.JFrame {
             pst.setString(6, tf_nuevo_Cliente_empresa.getText());
             int nu = pst.executeUpdate();
             if (nu > 0) {
-                JOptionPane.showMessageDialog(rootPane, "Cliente Creadoo con exito!");
+                JOptionPane.showMessageDialog(rootPane, "Cliente Creado con exito!");
                 Cliente clie = new Cliente(Integer.parseInt(tf_nuevo_Cliente_id.getText()),
                                            tf_nuevo_Cliente_telefono.getText(),
                                            tf_nuevo_Cliente_direccion.getText(),
