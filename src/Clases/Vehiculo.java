@@ -5,6 +5,8 @@
  */
 package Clases;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Miguel A. Ardon E
@@ -20,7 +22,7 @@ public class Vehiculo {
     double kilomet;
     int id_conductor;
     int id_Producto;
-
+    ArrayList<traileta> trailetas;
     public Vehiculo() {
     }
 
