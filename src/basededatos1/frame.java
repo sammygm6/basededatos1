@@ -12,6 +12,7 @@ import Clases.Factura;
 import Clases.Producto;
 import Clases.Proveedor;
 import Clases.Vehiculo;
+import Clases.traileta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -181,7 +182,7 @@ public class frame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, e + "2");
             }
         }
-        
+
         //toma los valores de la tabla de cliente
         cn = new Conn();// Obtiene la conexion
         rs = null;
@@ -258,14 +259,14 @@ public class frame extends javax.swing.JFrame {
         tf_editar_proveedor_nombre = new javax.swing.JTextField();
         tf_editar_proveedor_telefono = new javax.swing.JFormattedTextField();
         jButton7 = new javax.swing.JButton();
-        cb_editar_proveedor = new javax.swing.JComboBox<String>();
+        cb_editar_proveedor = new javax.swing.JComboBox<>();
         jLabel74 = new javax.swing.JLabel();
         jLabel75 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla_proveedores = new javax.swing.JTable();
         jLabel167 = new javax.swing.JLabel();
-        cb_borrar_proveedor = new javax.swing.JComboBox<String>();
+        cb_borrar_proveedor = new javax.swing.JComboBox<>();
         jButton24 = new javax.swing.JButton();
         jLabel84 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
@@ -295,10 +296,10 @@ public class frame extends javax.swing.JFrame {
         jLabel160 = new javax.swing.JLabel();
         jLabel161 = new javax.swing.JLabel();
         jLabel183 = new javax.swing.JLabel();
-        cb_editar_Producto_proveedor = new javax.swing.JComboBox<String>();
+        cb_editar_Producto_proveedor = new javax.swing.JComboBox<>();
         tf_editar_Producto_nombre = new javax.swing.JTextField();
         jButton21 = new javax.swing.JButton();
-        cb_editar_Producto = new javax.swing.JComboBox<String>();
+        cb_editar_Producto = new javax.swing.JComboBox<>();
         Sp_editar_Producto_Tcantidad = new javax.swing.JSpinner();
         Sp_editar_Producto_precio = new javax.swing.JSpinner();
         jLabel164 = new javax.swing.JLabel();
@@ -307,7 +308,7 @@ public class frame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable_Producto = new javax.swing.JTable();
         jLabel166 = new javax.swing.JLabel();
-        cb_borrar_producto = new javax.swing.JComboBox<String>();
+        cb_borrar_producto = new javax.swing.JComboBox<>();
         jButton22 = new javax.swing.JButton();
         jLabel168 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
@@ -316,7 +317,7 @@ public class frame extends javax.swing.JFrame {
         tf_nuevo_producto_id = new javax.swing.JTextField();
         tf_nuevo_producto_nombre = new javax.swing.JTextField();
         jLabel184 = new javax.swing.JLabel();
-        cb_nuevo_Producto_proveedor = new javax.swing.JComboBox<String>();
+        cb_nuevo_Producto_proveedor = new javax.swing.JComboBox<>();
         jButton23 = new javax.swing.JButton();
         jLabel162 = new javax.swing.JLabel();
         Sp_nuevo_producto_precio = new javax.swing.JSpinner();
@@ -336,7 +337,7 @@ public class frame extends javax.swing.JFrame {
         jLabel174 = new javax.swing.JLabel();
         tf_editar_Cliente_direccion = new javax.swing.JTextField();
         jButton25 = new javax.swing.JButton();
-        cb_editar_Cliente = new javax.swing.JComboBox<String>();
+        cb_editar_Cliente = new javax.swing.JComboBox<>();
         Sp_editar_Cliente_fecaInicio = new javax.swing.JSpinner();
         jLabel179 = new javax.swing.JLabel();
         tf_editar_Cliente_empresa = new javax.swing.JTextField();
@@ -350,7 +351,7 @@ public class frame extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable_cliente = new javax.swing.JTable();
         jLabel181 = new javax.swing.JLabel();
-        cb_borrar_cliente = new javax.swing.JComboBox<String>();
+        cb_borrar_cliente = new javax.swing.JComboBox<>();
         jButton26 = new javax.swing.JButton();
         jLabel182 = new javax.swing.JLabel();
         jPanel29 = new javax.swing.JPanel();
@@ -382,8 +383,8 @@ public class frame extends javax.swing.JFrame {
         jLabel204 = new javax.swing.JLabel();
         tf_editar_vehiculo_modelo = new javax.swing.JTextField();
         jButton28 = new javax.swing.JButton();
-        cb_editar_vehiculo = new javax.swing.JComboBox<String>();
-        Sp_editar_vehiculo_tm = new javax.swing.JSpinner();
+        cb_editar_vehiculo = new javax.swing.JComboBox<>();
+        Sp_editar_traileta_tm = new javax.swing.JSpinner();
         jLabel205 = new javax.swing.JLabel();
         tf_editar_vehiculo_marca = new javax.swing.JTextField();
         jLabel208 = new javax.swing.JLabel();
@@ -391,25 +392,28 @@ public class frame extends javax.swing.JFrame {
         jLabel224 = new javax.swing.JLabel();
         jLabel225 = new javax.swing.JLabel();
         Sp_editar_vehiculo_año = new javax.swing.JSpinner();
-        cb_editar_vehiculo_tipoCombu = new javax.swing.JComboBox<String>();
-        Sp_editar_vehiculo_color = new javax.swing.JTextField();
+        tf_editar_vehiculo_color = new javax.swing.JTextField();
         jLabel249 = new javax.swing.JLabel();
         tf_editar_vehiculo_localizador = new javax.swing.JTextField();
         Sp_editar_vehiculo_kilometraje = new javax.swing.JSpinner();
         jLabel250 = new javax.swing.JLabel();
         jLabel251 = new javax.swing.JLabel();
         Sp_editar_vehiculo_capaCombus = new javax.swing.JSpinner();
+        jLabel228 = new javax.swing.JLabel();
+        cb_editar_vehiculo_tipoCombu = new javax.swing.JComboBox<>();
+        jButton34 = new javax.swing.JButton();
+        cb_editar_traileta_placa = new javax.swing.JComboBox<>();
         jLabel209 = new javax.swing.JLabel();
         jPanel31 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable_vehivculo = new javax.swing.JTable();
+        jTable_vehiculo = new javax.swing.JTable();
         jLabel210 = new javax.swing.JLabel();
-        cb_borrar_vehiculo = new javax.swing.JComboBox<String>();
+        cb_borrar_vehiculo = new javax.swing.JComboBox<>();
         jButton29 = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable_traileta = new javax.swing.JTable();
         jLabel227 = new javax.swing.JLabel();
-        cb_borrar_traileta = new javax.swing.JComboBox<String>();
+        cb_borrar_traileta = new javax.swing.JComboBox<>();
         jButton35 = new javax.swing.JButton();
         jLabel211 = new javax.swing.JLabel();
         jPanel32 = new javax.swing.JPanel();
@@ -431,10 +435,13 @@ public class frame extends javax.swing.JFrame {
         jLabel263 = new javax.swing.JLabel();
         jLabel264 = new javax.swing.JLabel();
         Sp_nuevo_vehiculo_capaCombu = new javax.swing.JSpinner();
-        cb_nuevo_vehiculo_tipoCombu = new javax.swing.JComboBox<String>();
+        cb_nuevo_vehiculo_tipoCombu = new javax.swing.JComboBox<>();
         tf_nuevo_vehiculo_localizador = new javax.swing.JTextField();
         Sp_nuevo_vehiculo_kilometra = new javax.swing.JSpinner();
-        Sp_nuevo_vehiculo_tm = new javax.swing.JSpinner();
+        Sp_nuevo_traileta_tm = new javax.swing.JSpinner();
+        jLabel265 = new javax.swing.JLabel();
+        jButton36 = new javax.swing.JButton();
+        tf_nuevo_traileta_placa = new javax.swing.JTextField();
         jLabel219 = new javax.swing.JLabel();
         jLabel220 = new javax.swing.JLabel();
         jLabel221 = new javax.swing.JLabel();
@@ -449,7 +456,7 @@ public class frame extends javax.swing.JFrame {
         jLabel215 = new javax.swing.JLabel();
         tf_editar_conductor_direccion = new javax.swing.JTextField();
         jButton31 = new javax.swing.JButton();
-        cb_editar_conductor = new javax.swing.JComboBox<String>();
+        cb_editar_conductor = new javax.swing.JComboBox<>();
         Sp_editar_conductor_viaticos = new javax.swing.JSpinner();
         jLabel216 = new javax.swing.JLabel();
         tf_editar_conductor_nombre = new javax.swing.JTextField();
@@ -468,7 +475,7 @@ public class frame extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable_conductor = new javax.swing.JTable();
         jLabel235 = new javax.swing.JLabel();
-        cb_borrar_conductor = new javax.swing.JComboBox<String>();
+        cb_borrar_conductor = new javax.swing.JComboBox<>();
         jButton32 = new javax.swing.JButton();
         jLabel236 = new javax.swing.JLabel();
         jPanel35 = new javax.swing.JPanel();
@@ -829,7 +836,7 @@ public class frame extends javax.swing.JFrame {
         Sp_editar_Producto_Tcantidad.setModel(new javax.swing.SpinnerNumberModel());
         jPanel24.add(Sp_editar_Producto_Tcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 270, 220, -1));
 
-        Sp_editar_Producto_precio.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.0f), null, null, Float.valueOf(1.0f)));
+        Sp_editar_Producto_precio.setModel(new javax.swing.SpinnerNumberModel(0.0f, null, null, 1.0f));
         jPanel24.add(Sp_editar_Producto_precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 210, 220, -1));
 
         jLabel164.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
@@ -944,7 +951,7 @@ public class frame extends javax.swing.JFrame {
         jLabel162.setText("Precio");
         jPanel27.add(jLabel162, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, -1, -1));
 
-        Sp_nuevo_producto_precio.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(1.0d)));
+        Sp_nuevo_producto_precio.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 1.0d));
         jPanel27.add(Sp_nuevo_producto_precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 200, 220, -1));
 
         jLabel163.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
@@ -952,7 +959,7 @@ public class frame extends javax.swing.JFrame {
         jLabel163.setText("Cantidad Total");
         jPanel27.add(jLabel163, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, -1, -1));
 
-        Sp_nuevo_producto_Tcantidad.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(1.0d)));
+        Sp_nuevo_producto_Tcantidad.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 1.0d));
         jPanel27.add(Sp_nuevo_producto_Tcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, 220, -1));
 
         jLabel175.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dark-grey-background-pattern-i7.jpg"))); // NOI18N
@@ -1237,6 +1244,11 @@ public class frame extends javax.swing.JFrame {
         jTabbedPane19.setBackground(new java.awt.Color(51, 51, 51));
         jTabbedPane19.setForeground(new java.awt.Color(0, 204, 204));
         jTabbedPane19.setFont(new java.awt.Font("Rockwell Condensed", 0, 48)); // NOI18N
+        jTabbedPane19.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane19StateChanged(evt);
+            }
+        });
 
         jPanel30.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1271,14 +1283,32 @@ public class frame extends javax.swing.JFrame {
         jButton28.setForeground(new java.awt.Color(153, 153, 0));
         jButton28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/compose-64.png"))); // NOI18N
         jButton28.setText("Editar");
-        jPanel30.add(jButton28, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 470, 241, 76));
+        jButton28.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton28MouseClicked(evt);
+            }
+        });
+        jPanel30.add(jButton28, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 470, 241, 76));
 
         cb_editar_vehiculo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        cb_editar_vehiculo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_editar_vehiculoItemStateChanged(evt);
+            }
+        });
+        cb_editar_vehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_editar_vehiculoActionPerformed(evt);
+            }
+        });
         jPanel30.add(cb_editar_vehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 43, 227, -1));
 
         Sp_editar_vehiculo_tm.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Sp_editar_vehiculo_tm.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(1.0d)));
         jPanel30.add(Sp_editar_vehiculo_tm, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 360, 150, -1));
+        Sp_editar_traileta_tm.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Sp_editar_traileta_tm.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
+        jPanel30.add(Sp_editar_traileta_tm, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 420, 150, -1));
 
         jLabel205.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel205.setForeground(new java.awt.Color(204, 204, 204));
@@ -1300,8 +1330,8 @@ public class frame extends javax.swing.JFrame {
 
         jLabel224.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel224.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel224.setText("Capacidad de Combustible:");
-        jPanel30.add(jLabel224, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 110, 310, -1));
+        jLabel224.setText("Numero de Placa:");
+        jPanel30.add(jLabel224, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 370, 210, -1));
 
         jLabel225.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel225.setForeground(new java.awt.Color(204, 204, 204));
@@ -1309,15 +1339,11 @@ public class frame extends javax.swing.JFrame {
         jPanel30.add(jLabel225, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 140, -1));
 
         Sp_editar_vehiculo_año.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Sp_editar_vehiculo_año.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(2000), Integer.valueOf(1900), null, Integer.valueOf(1)));
+        Sp_editar_vehiculo_año.setModel(new javax.swing.SpinnerNumberModel(2000, 1900, null, 1));
         jPanel30.add(Sp_editar_vehiculo_año, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 250, -1));
 
-        cb_editar_vehiculo_tipoCombu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        cb_editar_vehiculo_tipoCombu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gasolina", "Regular" }));
-        jPanel30.add(cb_editar_vehiculo_tipoCombu, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 170, 150, -1));
-
-        Sp_editar_vehiculo_color.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jPanel30.add(Sp_editar_vehiculo_color, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 410, 250, -1));
+        tf_editar_vehiculo_color.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPanel30.add(tf_editar_vehiculo_color, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 410, 250, -1));
 
         jLabel249.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel249.setForeground(new java.awt.Color(204, 204, 204));
@@ -1328,7 +1354,11 @@ public class frame extends javax.swing.JFrame {
         jPanel30.add(tf_editar_vehiculo_localizador, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 230, 260, -1));
 
         Sp_editar_vehiculo_kilometraje.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+<<<<<<< HEAD
         Sp_editar_vehiculo_kilometraje.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(1.0d)));
+=======
+        Sp_editar_vehiculo_kilometraje.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
+>>>>>>> 33621bb8918437db5ca223f0d04deb787ce33722
         jPanel30.add(Sp_editar_vehiculo_kilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, 250, -1));
 
         jLabel250.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
@@ -1339,11 +1369,35 @@ public class frame extends javax.swing.JFrame {
         jLabel251.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel251.setForeground(new java.awt.Color(204, 204, 204));
         jLabel251.setText("Toneladas Metricas:");
-        jPanel30.add(jLabel251, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 360, 250, -1));
+        jPanel30.add(jLabel251, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 420, 250, -1));
 
         Sp_editar_vehiculo_capaCombus.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Sp_editar_vehiculo_capaCombus.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
+        Sp_editar_vehiculo_capaCombus.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
         jPanel30.add(Sp_editar_vehiculo_capaCombus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 110, 100, -1));
+
+        jLabel228.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
+        jLabel228.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel228.setText("Capacidad de Combustible:");
+        jPanel30.add(jLabel228, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 110, 310, -1));
+
+        cb_editar_vehiculo_tipoCombu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cb_editar_vehiculo_tipoCombu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Regular", "Premium", "Diesel" }));
+        jPanel30.add(cb_editar_vehiculo_tipoCombu, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 160, 150, -1));
+
+        jButton34.setBackground(new java.awt.Color(204, 204, 204));
+        jButton34.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
+        jButton34.setForeground(new java.awt.Color(255, 0, 0));
+        jButton34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/compose-64.png"))); // NOI18N
+        jButton34.setText("Editar Traileta");
+        jButton34.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton34MouseClicked(evt);
+            }
+        });
+        jPanel30.add(jButton34, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 480, 241, 50));
+
+        cb_editar_traileta_placa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel30.add(cb_editar_traileta_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 360, 150, -1));
 
         jLabel209.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dark-grey-background-pattern-i7.jpg"))); // NOI18N
         jPanel30.add(jLabel209, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1210, 590));
@@ -1352,9 +1406,9 @@ public class frame extends javax.swing.JFrame {
 
         jPanel31.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable_vehivculo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTable_vehivculo.setForeground(new java.awt.Color(0, 0, 102));
-        jTable_vehivculo.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_vehiculo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTable_vehiculo.setForeground(new java.awt.Color(0, 0, 102));
+        jTable_vehiculo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -1370,15 +1424,16 @@ public class frame extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(jTable_vehivculo);
-        if (jTable_vehivculo.getColumnModel().getColumnCount() > 0) {
-            jTable_vehivculo.getColumnModel().getColumn(2).setHeaderValue("");
-            jTable_vehivculo.getColumnModel().getColumn(3).setHeaderValue("Modelo");
-            jTable_vehivculo.getColumnModel().getColumn(4).setHeaderValue("Año");
-            jTable_vehivculo.getColumnModel().getColumn(5).setHeaderValue("Color");
-            jTable_vehivculo.getColumnModel().getColumn(6).setHeaderValue("Capacidad Combustible");
-            jTable_vehivculo.getColumnModel().getColumn(7).setHeaderValue("Tipo Combustible");
-            jTable_vehivculo.getColumnModel().getColumn(8).setHeaderValue("Localizador");
+        jTable_vehiculo.setEnabled(false);
+        jScrollPane4.setViewportView(jTable_vehiculo);
+        if (jTable_vehiculo.getColumnModel().getColumnCount() > 0) {
+            jTable_vehiculo.getColumnModel().getColumn(2).setHeaderValue("");
+            jTable_vehiculo.getColumnModel().getColumn(3).setHeaderValue("Modelo");
+            jTable_vehiculo.getColumnModel().getColumn(4).setHeaderValue("Año");
+            jTable_vehiculo.getColumnModel().getColumn(5).setHeaderValue("Color");
+            jTable_vehiculo.getColumnModel().getColumn(6).setHeaderValue("Capacidad Combustible");
+            jTable_vehiculo.getColumnModel().getColumn(7).setHeaderValue("Tipo Combustible");
+            jTable_vehiculo.getColumnModel().getColumn(8).setHeaderValue("Localizador");
         }
 
         jPanel31.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 1130, 230));
@@ -1389,6 +1444,11 @@ public class frame extends javax.swing.JFrame {
         jPanel31.add(jLabel210, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, -1, -1));
 
         cb_borrar_vehiculo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        cb_borrar_vehiculo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_borrar_vehiculoItemStateChanged(evt);
+            }
+        });
         jPanel31.add(cb_borrar_vehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, 370, -1));
 
         jButton29.setBackground(new java.awt.Color(204, 204, 204));
@@ -1396,6 +1456,11 @@ public class frame extends javax.swing.JFrame {
         jButton29.setForeground(new java.awt.Color(0, 102, 102));
         jButton29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/-_delete_minus_cancel_close-64.png"))); // NOI18N
         jButton29.setText("Borrar");
+        jButton29.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton29MouseClicked(evt);
+            }
+        });
         jPanel31.add(jButton29, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 270, 241, 76));
 
         jTable_traileta.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -1416,6 +1481,7 @@ public class frame extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTable_traileta.setEnabled(false);
         jScrollPane6.setViewportView(jTable_traileta);
 
         jPanel31.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 360, 530, 120));
@@ -1433,6 +1499,11 @@ public class frame extends javax.swing.JFrame {
         jButton35.setForeground(new java.awt.Color(0, 102, 102));
         jButton35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/-_delete_minus_cancel_close-64.png"))); // NOI18N
         jButton35.setText("Borrar");
+        jButton35.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton35MouseClicked(evt);
+            }
+        });
         jPanel31.add(jButton35, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 490, 241, 76));
 
         jLabel211.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Dark-Gray-Background-for-Free-Download.jpg"))); // NOI18N
@@ -1447,7 +1518,12 @@ public class frame extends javax.swing.JFrame {
         jButton30.setForeground(new java.awt.Color(0, 153, 153));
         jButton30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/07_plus-64.png"))); // NOI18N
         jButton30.setText("Crear");
-        jPanel32.add(jButton30, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 440, -1, -1));
+        jButton30.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton30MouseClicked(evt);
+            }
+        });
+        jPanel32.add(jButton30, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 430, -1, -1));
 
         jLabel253.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel253.setForeground(new java.awt.Color(204, 204, 204));
@@ -1486,7 +1562,7 @@ public class frame extends javax.swing.JFrame {
         jPanel32.add(tf_nuevo_vehiculo_color, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, 250, -1));
 
         Sp_nuevo_vehiculo_año.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Sp_nuevo_vehiculo_año.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(2000), Integer.valueOf(1900), null, Integer.valueOf(1)));
+        Sp_nuevo_vehiculo_año.setModel(new javax.swing.SpinnerNumberModel(2000, 1900, null, 1));
         jPanel32.add(Sp_nuevo_vehiculo_año, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 250, -1));
 
         tf_nuevo_vehiculo_modelo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -1498,7 +1574,7 @@ public class frame extends javax.swing.JFrame {
         jLabel260.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel260.setForeground(new java.awt.Color(204, 204, 204));
         jLabel260.setText("Toneladas Metricas:");
-        jPanel32.add(jLabel260, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 300, 290, -1));
+        jPanel32.add(jLabel260, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 390, 290, -1));
 
         jLabel261.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel261.setForeground(new java.awt.Color(204, 0, 0));
@@ -1517,27 +1593,47 @@ public class frame extends javax.swing.JFrame {
 
         jLabel264.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
         jLabel264.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel264.setText("Capacidad de Combustible:");
-        jPanel32.add(jLabel264, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 50, 310, -1));
+        jLabel264.setText("Numero de Placa:");
+        jPanel32.add(jLabel264, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 330, 210, -1));
 
         Sp_nuevo_vehiculo_capaCombu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Sp_nuevo_vehiculo_capaCombu.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
-        jPanel32.add(Sp_nuevo_vehiculo_capaCombu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 50, 100, -1));
+        Sp_nuevo_vehiculo_capaCombu.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
+        jPanel32.add(Sp_nuevo_vehiculo_capaCombu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 50, 100, -1));
 
         cb_nuevo_vehiculo_tipoCombu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        cb_nuevo_vehiculo_tipoCombu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gasolina", "Regular" }));
-        jPanel32.add(cb_nuevo_vehiculo_tipoCombu, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 110, 150, -1));
+        cb_nuevo_vehiculo_tipoCombu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gasolina", "Regular" }));
+        jPanel32.add(cb_nuevo_vehiculo_tipoCombu, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 110, 150, -1));
 
         tf_nuevo_vehiculo_localizador.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jPanel32.add(tf_nuevo_vehiculo_localizador, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 170, 260, -1));
 
         Sp_nuevo_vehiculo_kilometra.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Sp_nuevo_vehiculo_kilometra.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
+        Sp_nuevo_vehiculo_kilometra.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
         jPanel32.add(Sp_nuevo_vehiculo_kilometra, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 250, -1));
 
-        Sp_nuevo_vehiculo_tm.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Sp_nuevo_vehiculo_tm.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
-        jPanel32.add(Sp_nuevo_vehiculo_tm, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 300, 150, -1));
+        Sp_nuevo_traileta_tm.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Sp_nuevo_traileta_tm.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
+        jPanel32.add(Sp_nuevo_traileta_tm, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 390, 150, -1));
+
+        jLabel265.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
+        jLabel265.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel265.setText("Capacidad de Combustible:");
+        jPanel32.add(jLabel265, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 50, 310, -1));
+
+        jButton36.setBackground(new java.awt.Color(204, 204, 204));
+        jButton36.setFont(new java.awt.Font("Rockwell", 1, 14)); // NOI18N
+        jButton36.setForeground(new java.awt.Color(255, 0, 0));
+        jButton36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/07_plus-64.png"))); // NOI18N
+        jButton36.setText("Agregar Traileta");
+        jButton36.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton36MouseClicked(evt);
+            }
+        });
+        jPanel32.add(jButton36, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 440, -1, -1));
+
+        tf_nuevo_traileta_placa.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPanel32.add(tf_nuevo_traileta_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 330, 210, -1));
 
         jLabel219.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dark-grey-background-pattern-i7.jpg"))); // NOI18N
         jPanel32.add(jLabel219, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1210, 580));
@@ -1628,7 +1724,7 @@ public class frame extends javax.swing.JFrame {
         jPanel33.add(cb_editar_conductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 43, 300, -1));
 
         Sp_editar_conductor_viaticos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Sp_editar_conductor_viaticos.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
+        Sp_editar_conductor_viaticos.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
         jPanel33.add(Sp_editar_conductor_viaticos, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 170, 250, -1));
 
         jLabel216.setFont(new java.awt.Font("Sitka Text", 0, 24)); // NOI18N
@@ -1674,11 +1770,11 @@ public class frame extends javax.swing.JFrame {
         jPanel33.add(tf_editar_conductor_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 230, 250, -1));
 
         Sp_editar_conductor_edad.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Sp_editar_conductor_edad.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(15), Integer.valueOf(15), null, Integer.valueOf(1)));
+        Sp_editar_conductor_edad.setModel(new javax.swing.SpinnerNumberModel(15, 15, null, 1));
         jPanel33.add(Sp_editar_conductor_edad, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 250, -1));
 
         Sp_editar_conductor_salario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Sp_editar_conductor_salario.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
+        Sp_editar_conductor_salario.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
         jPanel33.add(Sp_editar_conductor_salario, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 110, 250, -1));
 
         jLabel218.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dark-grey-background-pattern-i7.jpg"))); // NOI18N
@@ -1793,7 +1889,7 @@ public class frame extends javax.swing.JFrame {
         jPanel35.add(tf_nuevo_conductor_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 720, -1));
 
         Sp_nuevo_conductor_edad.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Sp_nuevo_conductor_edad.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(15), Integer.valueOf(15), null, Integer.valueOf(1)));
+        Sp_nuevo_conductor_edad.setModel(new javax.swing.SpinnerNumberModel(15, 15, null, 1));
         jPanel35.add(Sp_nuevo_conductor_edad, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 250, -1));
 
         tf_nuevo_conductor_apellido.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -1833,11 +1929,11 @@ public class frame extends javax.swing.JFrame {
         jPanel35.add(tf_nuevo_conductor_localizador, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 250, 250, -1));
 
         Sp_nuevo_conductor_viaticos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Sp_nuevo_conductor_viaticos.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
+        Sp_nuevo_conductor_viaticos.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
         jPanel35.add(Sp_nuevo_conductor_viaticos, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 120, 250, -1));
 
         Sp_nuevo_conductor_salario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Sp_nuevo_conductor_salario.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
+        Sp_nuevo_conductor_salario.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
         jPanel35.add(Sp_nuevo_conductor_salario, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 60, 250, -1));
 
         jLabel245.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dark-grey-background-pattern-i7.jpg"))); // NOI18N
@@ -2690,7 +2786,7 @@ public class frame extends javax.swing.JFrame {
             if (nu > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Conductor Actualizado con exito!");
                 for (int i = 0; i < conductores.size(); i++) {
-                    if (conductores.get(i).getId_conductor()== id_conductor) {
+                    if (conductores.get(i).getId_conductor() == id_conductor) {
                         conductores.get(i).setDireccion(tf_editar_conductor_direccion.getText());
                         conductores.get(i).setNombre(tf_editar_conductor_nombre.getText());
                         conductores.get(i).setApellido(tf_editar_conductor_apellido.getText());
@@ -2725,18 +2821,18 @@ public class frame extends javax.swing.JFrame {
             }
             for (int i = 0; i < conductores.size(); i++) {
                 tmodel.addRow(new Object[]{conductores.get(i).getId_conductor(),
-                conductores.get(i).getNombre(),
-                conductores.get(i).getApellido(),
-                conductores.get(i).getEdad(),
-                conductores.get(i).getDireccion(),
-                conductores.get(i).getSueldo(),
-                conductores.get(i).getViaticos(),
-                conductores.get(i).getTelefono(),
-                conductores.get(i).getLocalizador()});
+                    conductores.get(i).getNombre(),
+                    conductores.get(i).getApellido(),
+                    conductores.get(i).getEdad(),
+                    conductores.get(i).getDireccion(),
+                    conductores.get(i).getSueldo(),
+                    conductores.get(i).getViaticos(),
+                    conductores.get(i).getTelefono(),
+                    conductores.get(i).getLocalizador()});
             }
             jTable_conductor.setModel(tmodel);
         } else if (jTabbedPane20.getSelectedIndex() == 2) {
-            tf_nuevo_conductor_id.setText(Integer.toString(conductores.get(conductores.size() - 1).getId_conductor()+ 1));
+            tf_nuevo_conductor_id.setText(Integer.toString(conductores.get(conductores.size() - 1).getId_conductor() + 1));
         }
     }//GEN-LAST:event_jTabbedPane20MouseClicked
 
@@ -2811,14 +2907,14 @@ public class frame extends javax.swing.JFrame {
             if (nu > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Conductor Creado con exito!");
                 Conductor con = new Conductor(Integer.parseInt(tf_nuevo_conductor_id.getText()),
-                                              tf_nuevo_conductor_direccion.getText(),
-                                              tf_nuevo_conductor_nombre.getText(),
-                                              tf_nuevo_conductor_apellido.getText(),
-                                              tf_nuevo_conductor_localizador.getText(),
-                                              Double.parseDouble(Sp_nuevo_conductor_salario.getValue().toString()),
-                                              Integer.parseInt(Sp_nuevo_conductor_edad.getValue().toString()),
-                                              Double.parseDouble(Sp_nuevo_conductor_viaticos.getValue().toString()),
-                                              tf_nuevo_conductor_telefono.getText());
+                        tf_nuevo_conductor_direccion.getText(),
+                        tf_nuevo_conductor_nombre.getText(),
+                        tf_nuevo_conductor_apellido.getText(),
+                        tf_nuevo_conductor_localizador.getText(),
+                        Double.parseDouble(Sp_nuevo_conductor_salario.getValue().toString()),
+                        Integer.parseInt(Sp_nuevo_conductor_edad.getValue().toString()),
+                        Double.parseDouble(Sp_nuevo_conductor_viaticos.getValue().toString()),
+                        tf_nuevo_conductor_telefono.getText());
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -2867,7 +2963,7 @@ public class frame extends javax.swing.JFrame {
                 id_Cliente = clientes.get(i).getCliente();
                 tf_editar_Cliente_id.setText(Integer.toString(clientes.get(i).getCliente()));
                 tf_editar_Cliente_empresa.setText(clientes.get(i).getNombre_Empresa());
-                SpinnerDateModel model = (SpinnerDateModel)Sp_editar_Cliente_fecaInicio.getModel();
+                SpinnerDateModel model = (SpinnerDateModel) Sp_editar_Cliente_fecaInicio.getModel();
                 model.setValue(clientes.get(i).getFecha_iniContrato());
                 Sp_editar_Cliente_fecaInicio.setValue(model.getDate());
                 tf_editar_Cliente_direccion.setText(clientes.get(i).getDireccion());
@@ -2884,7 +2980,7 @@ public class frame extends javax.swing.JFrame {
                 id_Cliente = clientes.get(i).getCliente();
                 tf_editar_Cliente_id.setText(Integer.toString(clientes.get(i).getCliente()));
                 tf_editar_Cliente_empresa.setText(clientes.get(i).getNombre_Empresa());
-                SpinnerDateModel model = (SpinnerDateModel)Sp_editar_Cliente_fecaInicio.getModel();
+                SpinnerDateModel model = (SpinnerDateModel) Sp_editar_Cliente_fecaInicio.getModel();
                 model.setValue(clientes.get(i).getFecha_iniContrato());
                 Sp_editar_Cliente_fecaInicio.setValue(model.getDate());
                 tf_editar_Cliente_direccion.setText(clientes.get(i).getDireccion());
@@ -2906,7 +3002,7 @@ public class frame extends javax.swing.JFrame {
             pst.setString(1, tf_editar_cliente_telefono.getText());
             pst.setString(2, tf_editar_Cliente_direccion.getText());
             pst.setString(3, tf_editar_Cliente_nombreContacto.getText());
-            SpinnerDateModel model = (SpinnerDateModel)Sp_editar_Cliente_fecaInicio.getModel();
+            SpinnerDateModel model = (SpinnerDateModel) Sp_editar_Cliente_fecaInicio.getModel();
             pst.setDate(4, new java.sql.Date(model.getDate().getTime()));
             pst.setString(5, tf_editar_Cliente_empresa.getText());
             int nu = pst.executeUpdate();
@@ -2947,11 +3043,11 @@ public class frame extends javax.swing.JFrame {
             }
             for (int i = 0; i < clientes.size(); i++) {
                 tmodel.addRow(new Object[]{clientes.get(i).getCliente(),
-                clientes.get(i).getNombre_Empresa(),
-                clientes.get(i).getFecha_iniContrato(),
-                clientes.get(i).getDireccion(),
-                clientes.get(i).getTelefono(),
-                clientes.get(i).getNombre()});
+                    clientes.get(i).getNombre_Empresa(),
+                    clientes.get(i).getFecha_iniContrato(),
+                    clientes.get(i).getDireccion(),
+                    clientes.get(i).getTelefono(),
+                    clientes.get(i).getNombre()});
             }
             jTable_cliente.setModel(tmodel);
         } else if (jTabbedPane18.getSelectedIndex() == 2) {
@@ -2973,7 +3069,7 @@ public class frame extends javax.swing.JFrame {
             if (nu > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Cliente Eliminado con exito!");
                 for (int i = 0; i < clientes.size(); i++) {
-                    if (clientes.get(i).getCliente()== id_Cliente) {
+                    if (clientes.get(i).getCliente() == id_Cliente) {
                         clientes.remove(i);
                     }
                 }
@@ -3018,18 +3114,18 @@ public class frame extends javax.swing.JFrame {
             pst.setString(2, tf_nuevo_Cliente_telefono.getText());
             pst.setString(3, tf_nuevo_Cliente_direccion.getText());
             pst.setString(4, tf_nuevo_Cliente_nombreContacto.getText());
-            SpinnerDateModel model = (SpinnerDateModel)Sp_nuevo_Cliente_fechaInicio.getModel();
+            SpinnerDateModel model = (SpinnerDateModel) Sp_nuevo_Cliente_fechaInicio.getModel();
             pst.setDate(5, new java.sql.Date(model.getDate().getTime()));
             pst.setString(6, tf_nuevo_Cliente_empresa.getText());
             int nu = pst.executeUpdate();
             if (nu > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Cliente Creado con exito!");
                 Cliente clie = new Cliente(Integer.parseInt(tf_nuevo_Cliente_id.getText()),
-                                           tf_nuevo_Cliente_telefono.getText(),
-                                           tf_nuevo_Cliente_direccion.getText(),
-                                           tf_nuevo_Cliente_nombreContacto.getText(),
-                                           model.getDate(),
-                                           tf_nuevo_Cliente_empresa.getText());
+                        tf_nuevo_Cliente_telefono.getText(),
+                        tf_nuevo_Cliente_direccion.getText(),
+                        tf_nuevo_Cliente_nombreContacto.getText(),
+                        model.getDate(),
+                        tf_nuevo_Cliente_empresa.getText());
                 clientes.add(clie);
             }
         } catch (SQLException ex) {
@@ -3062,6 +3158,331 @@ public class frame extends javax.swing.JFrame {
         tf_nuevo_Cliente_nombreContacto.setText("");
         tf_nuevo_Cliente_empresa.setText("");
     }//GEN-LAST:event_jButton27ActionPerformed
+
+    private void cb_editar_vehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_editar_vehiculoActionPerformed
+        // evento para actualizar el combo box del vehiculo de la ventana editar
+        this.cb_editar_vehiculo.removeAllItems();
+        for (int i = 0; i < this.vehiculos.size(); i++) {
+            this.cb_editar_vehiculo.addItem(Integer.toString(this.vehiculos.get(i).getNumero_placa()));
+        }
+    }//GEN-LAST:event_cb_editar_vehiculoActionPerformed
+
+    private void cb_editar_vehiculoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_editar_vehiculoItemStateChanged
+        //evento para que cuando actualize el combo box llene los campos
+        //public Vehiculo(int numero_placa, String año, String marca, 
+        //String tipo_combustible, String modelo, String color,
+        //double capa_combustible, double kilomet, int id_conductor, int id_Producto) {
+        //this.numero_placa = numero_placa;
+        this.tf_editar_vehiculo_localizador.setText("");
+        this.tf_editar_vehiculo_marca.setText("");
+        this.tf_editar_vehiculo_modelo.setText("");
+        this.tf_editar_vehiculo_placa.setText("");
+        this.tf_editar_vehiculo_color.setText("");
+        this.Sp_editar_vehiculo_año.setValue(0);
+        this.Sp_editar_vehiculo_capaCombus.setValue(0);
+        this.Sp_editar_vehiculo_kilometraje.setValue(0);
+        this.cb_editar_vehiculo_tipoCombu.setSelectedIndex(0);
+        ////traileta
+        this.Sp_editar_traileta_tm.setValue(0);
+        this.cb_editar_traileta_placa.setSelectedIndex(0);
+
+        int id_vehiculo_seleccionado = Integer.parseInt(this.cb_editar_vehiculo.getSelectedItem().toString());
+        for (int i = 0; i < this.vehiculos.size(); i++) {
+            if (id_vehiculo_seleccionado == this.vehiculos.get(i).getNumero_placa()) {
+                this.tf_editar_vehiculo_marca.setText(this.vehiculos.get(i).getMarca());
+                this.tf_editar_vehiculo_modelo.setText(this.vehiculos.get(i).getModelo());
+                this.tf_editar_vehiculo_placa.setText(Integer.toString(this.vehiculos.get(i).getNumero_placa()));
+                this.tf_editar_vehiculo_color.setText(this.vehiculos.get(i).getColor());
+                this.Sp_editar_vehiculo_año.setValue(this.vehiculos.get(i).getAño());
+                this.Sp_editar_vehiculo_capaCombus.setValue(this.vehiculos.get(i).getCapa_combustible());
+                this.Sp_editar_vehiculo_kilometraje.setValue(this.vehiculos.get(i).getKilomet());
+                switch (this.vehiculos.get(i).getTipo_combustible()) {
+                    case "Regular":
+                        this.cb_editar_vehiculo_tipoCombu.setSelectedIndex(0);
+                        break;
+                    case "Premium":
+                        this.cb_editar_vehiculo_tipoCombu.setSelectedIndex(1);
+                        break;
+                    case "Diesel":
+                        this.cb_editar_vehiculo_tipoCombu.setSelectedIndex(2);
+                        break;
+                }
+                this.cb_editar_traileta_placa.removeAllItems();
+                for (int j = 0; j < this.vehiculos.get(i).getTrailetas().size(); j++) {
+                    this.cb_editar_traileta_placa.addItem(Integer.toString(this.vehiculos.get(i).getTrailetas().get(j).getNumero_placa()));
+                }
+                break;
+            }
+        }
+    }//GEN-LAST:event_cb_editar_vehiculoItemStateChanged
+
+    private void jButton28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton28MouseClicked
+        // evento para editar vehiculo
+        int id_vehiculo_seleccionado = Integer.parseInt(this.cb_editar_vehiculo.getSelectedItem().toString());
+        for (int i = 0; i < this.vehiculos.size(); i++) {
+            if (id_vehiculo_seleccionado == this.vehiculos.get(i).getNumero_placa()) {
+                this.vehiculos.get(i).setMarca(this.tf_editar_vehiculo_marca.getText());
+                this.vehiculos.get(i).setModelo(this.tf_editar_vehiculo_modelo.getText());
+                this.vehiculos.get(i).setNumero_placa(Integer.parseInt(this.tf_editar_vehiculo_placa.getText()));
+                this.vehiculos.get(i).setColor(this.tf_editar_vehiculo_color.getText());
+                this.vehiculos.get(i).setAño(this.Sp_editar_vehiculo_año.getValue().toString());
+                this.vehiculos.get(i).setCapa_combustible((double) this.Sp_editar_vehiculo_capaCombus.getValue());
+                this.vehiculos.get(i).setKilomet((double) this.Sp_editar_vehiculo_kilometraje.getValue());
+                this.vehiculos.get(i).setTipo_combustible(this.cb_editar_vehiculo_tipoCombu.getSelectedItem().toString());
+                JOptionPane.showMessageDialog(this, "Se Editaron los campos exitosamente");
+                break;
+            }
+        }
+        /////////////////////////////////QUERY//////////////////////////////////////////////////////////////////////
+        /*
+        sql = "INSERT INTO vehiculo (numeroPlaca, año, marca, tipocombustible,"
+                    + "modelo, color, capacidadcombustible, kilometraje)"
+                    + "VALUES (?,?,?,?,?,?,?,?)";
+        */
+        Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "UPDATE vehiculo SET año=?, marca=?, tipocombustible=?, modelo=?, color=?, "
+                    + "capacidadcombustible=?, kilometraje=? "
+                    + "WHERE idCliente=" + Integer.parseInt(this.tf_editar_vehiculo_placa.getText());
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setString(1, this.Sp_editar_vehiculo_año.getValue().toString());
+            pst.setString(2, this.tf_editar_vehiculo_marca.getText());
+            pst.setString(3, this.cb_editar_vehiculo_tipoCombu.getSelectedItem().toString());
+            pst.setString(4, this.tf_editar_vehiculo_modelo.getText());
+            pst.setString(5, this.tf_editar_vehiculo_color.getText());
+            pst.setInt(6, Integer.parseInt(this.Sp_editar_vehiculo_capaCombus.getValue().toString()));
+            pst.setInt(7, Integer.parseInt(this.Sp_editar_vehiculo_kilometraje.getValue().toString()));
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Cliente Actualizado con exito!");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex);
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        this.tf_editar_vehiculo_localizador.setText("");
+        this.tf_editar_vehiculo_marca.setText("");
+        this.tf_editar_vehiculo_modelo.setText("");
+        this.tf_editar_vehiculo_placa.setText("");
+        this.tf_editar_vehiculo_color.setText("");
+        this.Sp_editar_vehiculo_año.setValue(0);
+        this.Sp_editar_vehiculo_capaCombus.setValue(0);
+        this.Sp_editar_vehiculo_kilometraje.setValue(0);
+        this.cb_editar_vehiculo_tipoCombu.setSelectedIndex(0);
+    }//GEN-LAST:event_jButton28MouseClicked
+
+    private void jButton34MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton34MouseClicked
+        // evento para modificar una traileta
+        int placa_vehiculo_seleccionado = Integer.parseInt(this.cb_editar_vehiculo.getSelectedItem().toString());
+        int placa_traileta_seleccionada = Integer.parseInt(this.cb_editar_traileta_placa.getSelectedItem().toString());
+        for (int i = 0; i < this.vehiculos.size(); i++) {
+            if (placa_vehiculo_seleccionado == this.vehiculos.get(i).getNumero_placa()) {
+                for (int j = 0; j < this.vehiculos.get(i).getTrailetas().size(); j++) {
+                    if (placa_traileta_seleccionada == this.vehiculos.get(i).getTrailetas().get(j).getNumero_placa()) {
+                        this.vehiculos.get(i).getTrailetas().get(j).setTmMax((int)this.Sp_editar_traileta_tm.getValue());
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton34MouseClicked
+
+    private void jTabbedPane19StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane19StateChanged
+        // evento para actualizar la tabla de los vehiculos 
+        this.cb_borrar_vehiculo.removeAllItems();
+        DefaultTableModel tmodel = (DefaultTableModel) this.jTable_vehiculo.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < this.vehiculos.size(); i++) {
+            tmodel.addRow(new Object[]{vehiculos.get(i).getNumero_placa(),
+                vehiculos.get(i).getKilomet(),
+                vehiculos.get(i).getMarca(),
+                vehiculos.get(i).getModelo(),
+                vehiculos.get(i).getAño(),
+                vehiculos.get(i).getColor(),
+                vehiculos.get(i).getCapa_combustible(),
+                vehiculos.get(i).getTipo_combustible()
+            });
+            this.cb_borrar_vehiculo.addItem(Integer.toString(this.vehiculos.get(i).getNumero_placa()));//actualizando cb al mismo tiempo jeje
+        }
+        this.jTable_vehiculo.setModel(tmodel);
+
+    }//GEN-LAST:event_jTabbedPane19StateChanged
+
+    private void cb_borrar_vehiculoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_borrar_vehiculoItemStateChanged
+        // evento para actualizar el combo box de las trailetas cuando cambia de vehiculo 
+        this.cb_borrar_traileta.removeAllItems();
+        int placa_vehiculo_seleccionado = Integer.parseInt(this.cb_borrar_vehiculo.getSelectedItem().toString());
+        DefaultTableModel tmodel = (DefaultTableModel) this.jTable_traileta.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < this.vehiculos.size(); i++) {
+            if (placa_vehiculo_seleccionado == this.vehiculos.get(i).getNumero_placa()) {
+                for (int j = 0; j < this.vehiculos.get(i).getTrailetas().size(); j++) {
+                    this.cb_borrar_traileta.addItem(Integer.toString(this.vehiculos.get(i).getTrailetas().get(j).getNumero_placa()));
+                    tmodel.addRow(new Object[]{vehiculos.get(i).getTrailetas().get(j).getNumero_placa(),
+                        vehiculos.get(i).getTrailetas().get(j).getTmMax()
+                    });
+                }
+                this.jTable_traileta.setModel(tmodel);
+                break;
+            }
+        }
+    }//GEN-LAST:event_cb_borrar_vehiculoItemStateChanged
+
+    private void jButton29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton29MouseClicked
+        // evento para borrar un vehiculo
+        int id_vehiculo_seleccionado = Integer.parseInt(this.cb_borrar_vehiculo.getSelectedItem().toString());
+        for (int i = 0; i < this.vehiculos.size(); i++) {
+            if (id_vehiculo_seleccionado == this.vehiculos.get(i).getNumero_placa()) {
+                this.vehiculos.remove(i);
+                JOptionPane.showMessageDialog(this, "Vehiculo Eliminado exitosamente");
+                break;
+            }
+        }
+        //ahora actualizar la tabla de vehiculos
+        DefaultTableModel tmodel = (DefaultTableModel) this.jTable_vehiculo.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < this.vehiculos.size(); i++) {
+            tmodel.addRow(new Object[]{vehiculos.get(i).getNumero_placa(),
+                vehiculos.get(i).getKilomet(),
+                vehiculos.get(i).getMarca(),
+                vehiculos.get(i).getModelo(),
+                vehiculos.get(i).getAño(),
+                vehiculos.get(i).getColor(),
+                vehiculos.get(i).getCapa_combustible(),
+                vehiculos.get(i).getTipo_combustible()
+            });
+            this.cb_borrar_vehiculo.addItem(Integer.toString(this.vehiculos.get(i).getNumero_placa()));//actualizando cb al mismo tiempo jeje
+        }
+        this.jTable_vehiculo.setModel(tmodel);
+        ////////////////////////////////////////////QUERY/////////////////////////////////////////////////////
+         Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "DELETE FROM vehiculo "
+                    + "WHERE idCliente=?";
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setInt(1, id_vehiculo_seleccionado);
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Cliente Eliminado con exito!");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+        } catch (Exception ex) {
+        }
+    }//GEN-LAST:event_jButton29MouseClicked
+
+    private void jButton35MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton35MouseClicked
+        // evento para borrar una traileta
+        int placa_vehiculo_seleccionado = Integer.parseInt(this.cb_borrar_vehiculo.getSelectedItem().toString());
+        int placa_traileta_seleccionada = Integer.parseInt(this.cb_borrar_traileta.getSelectedItem().toString());
+        for (int i = 0; i < this.vehiculos.size(); i++) {
+            if (placa_vehiculo_seleccionado == this.vehiculos.get(i).getNumero_placa()) {
+                this.vehiculos.get(i).removeTraileta(placa_traileta_seleccionada);
+                break;
+            }
+        }
+        //ahora actualizar la tabla de trailetas
+        DefaultTableModel tmodel = (DefaultTableModel) this.jTable_traileta.getModel();
+        int fila = tmodel.getRowCount();
+        for (int i = 1; i <= fila; i++) {
+            tmodel.removeRow(0);
+        }
+        for (int i = 0; i < this.vehiculos.size(); i++) {
+            if (placa_vehiculo_seleccionado == this.vehiculos.get(i).getNumero_placa()) {
+                for (int j = 0; j < this.vehiculos.get(i).getTrailetas().size(); j++) {
+                    tmodel.addRow(new Object[]{vehiculos.get(i).getTrailetas().get(j).getNumero_placa(),
+                        vehiculos.get(i).getTrailetas().get(j).getTmMax()
+                    });
+                }
+                this.jTable_traileta.setModel(tmodel);
+                break;
+            }
+        }
+    }//GEN-LAST:event_jButton35MouseClicked
+
+    private void jButton30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton30MouseClicked
+        // evento para crear un nuevo vehiculo
+        //public Vehiculo(int numero_placa, String año, String marca,
+                //String tipo_combustible, String modelo, String color, 
+                //double capa_combustible, double kilomet
+        ////////////////////////////////////////////////////////////////////////////////
+        int numero_placa = Integer.parseInt(this.tf_nuevo_vehiculo_placa.getText());
+        String año = this.Sp_nuevo_vehiculo_año.getValue().toString();
+        String marca = this.tf_nuevo_vehiculo_marca.getText();
+        String tipo_combustible = this.cb_nuevo_vehiculo_tipoCombu.getSelectedItem().toString();
+        String modelo = this.tf_nuevo_vehiculo_modelo.getText();
+        String color = this.tf_nuevo_vehiculo_color.getText();
+        double capa_combustible = (double)this.Sp_nuevo_vehiculo_capaCombu.getValue();
+        double kilomet = (double)this.Sp_nuevo_vehiculo_kilometra.getValue();
+        this.tf_nuevo_vehiculo_color.setText("");
+        this.tf_nuevo_vehiculo_localizador.setText("");
+        this.tf_nuevo_vehiculo_marca.setText("");
+        this.tf_nuevo_vehiculo_modelo.setText("");
+        this.Sp_nuevo_vehiculo_año.setValue(0);
+        this.Sp_nuevo_vehiculo_capaCombu.setValue(0);
+        this.Sp_nuevo_vehiculo_kilometra.setValue(0);
+        Vehiculo nuevo_vehiculo = new Vehiculo(numero_placa,año, marca,tipo_combustible,
+            modelo,color,capa_combustible, kilomet);
+        this.vehiculos.add(nuevo_vehiculo);
+        //////////////////////////////////QUERY////////////////////////////////////////////////
+        Conn cn = new Conn();
+        try {
+            Connection cc = cn.mkConnRe();// Obtiene la conexion
+            String sql = "";
+            sql = "INSERT INTO vehiculo (numeroPlaca, año, marca, tipocombustible,"
+                    + "modelo, color, capacidadcombustible, kilometraje)"
+                    + "VALUES (?,?,?,?,?,?,?,?)";
+            PreparedStatement pst = cc.prepareStatement(sql);
+            pst.setInt(1, numero_placa);
+            pst.setString(2, año);
+            pst.setString(3, marca);
+            pst.setString(4, tipo_combustible);
+            pst.setString(5, modelo);
+            pst.setString(6, color);
+            pst.setInt(7, (int)capa_combustible);
+            pst.setInt(8, (int)kilomet);
+            int nu = pst.executeUpdate();
+            if (nu > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Cliente Creadoo con exito!");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "No se pudo realizar la coneccion!");
+
+        } catch (Exception ex) {
+        }
+    }//GEN-LAST:event_jButton30MouseClicked
+
+    private void jButton36MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton36MouseClicked
+        // evento para crear una nueva traileta
+        int placa_vehiculo_seleccionado = Integer.parseInt(this.tf_nuevo_vehiculo_placa.getText());
+        int placa_traileta = Integer.parseInt(this.tf_nuevo_traileta_placa.getText());
+        int tm_traileta = Integer.parseInt(this.Sp_nuevo_traileta_tm.getValue().toString());
+        traileta nueva_traileta = new traileta(placa_traileta,tm_traileta);
+        for (int i = 0; i < this.vehiculos.size(); i++) {
+            if (placa_vehiculo_seleccionado == this.vehiculos.get(i).getNumero_placa()) {
+                this.vehiculos.get(i).addTraileta(nueva_traileta);
+            }
+        }
+        this.tf_nuevo_traileta_placa.setText("");
+        this.Sp_nuevo_traileta_tm.setValue(0);
+    }//GEN-LAST:event_jButton36MouseClicked
 
     /**
      * @param args the command line arguments
@@ -3105,21 +3526,20 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JSpinner Sp_editar_conductor_edad;
     private javax.swing.JSpinner Sp_editar_conductor_salario;
     private javax.swing.JSpinner Sp_editar_conductor_viaticos;
+    private javax.swing.JSpinner Sp_editar_traileta_tm;
     private javax.swing.JSpinner Sp_editar_vehiculo_año;
     private javax.swing.JSpinner Sp_editar_vehiculo_capaCombus;
-    private javax.swing.JTextField Sp_editar_vehiculo_color;
     private javax.swing.JSpinner Sp_editar_vehiculo_kilometraje;
-    private javax.swing.JSpinner Sp_editar_vehiculo_tm;
     private javax.swing.JSpinner Sp_nuevo_Cliente_fechaInicio;
     private javax.swing.JSpinner Sp_nuevo_conductor_edad;
     private javax.swing.JSpinner Sp_nuevo_conductor_salario;
     private javax.swing.JSpinner Sp_nuevo_conductor_viaticos;
     private javax.swing.JSpinner Sp_nuevo_producto_Tcantidad;
     private javax.swing.JSpinner Sp_nuevo_producto_precio;
+    private javax.swing.JSpinner Sp_nuevo_traileta_tm;
     private javax.swing.JSpinner Sp_nuevo_vehiculo_año;
     private javax.swing.JSpinner Sp_nuevo_vehiculo_capaCombu;
     private javax.swing.JSpinner Sp_nuevo_vehiculo_kilometra;
-    private javax.swing.JSpinner Sp_nuevo_vehiculo_tm;
     private javax.swing.JComboBox<String> cb_borrar_cliente;
     private javax.swing.JComboBox<String> cb_borrar_conductor;
     private javax.swing.JComboBox<String> cb_borrar_producto;
@@ -3131,6 +3551,7 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb_editar_Producto_proveedor;
     private javax.swing.JComboBox<String> cb_editar_conductor;
     private javax.swing.JComboBox<String> cb_editar_proveedor;
+    private javax.swing.JComboBox<String> cb_editar_traileta_placa;
     private javax.swing.JComboBox<String> cb_editar_vehiculo;
     private javax.swing.JComboBox<String> cb_editar_vehiculo_tipoCombu;
     private javax.swing.JComboBox<String> cb_nuevo_Producto_proveedor;
@@ -3148,7 +3569,9 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton32;
     private javax.swing.JButton jButton33;
+    private javax.swing.JButton jButton34;
     private javax.swing.JButton jButton35;
+    private javax.swing.JButton jButton36;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel158;
@@ -3217,6 +3640,7 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel225;
     private javax.swing.JLabel jLabel226;
     private javax.swing.JLabel jLabel227;
+    private javax.swing.JLabel jLabel228;
     private javax.swing.JLabel jLabel232;
     private javax.swing.JLabel jLabel233;
     private javax.swing.JLabel jLabel234;
@@ -3249,6 +3673,7 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel262;
     private javax.swing.JLabel jLabel263;
     private javax.swing.JLabel jLabel264;
+    private javax.swing.JLabel jLabel265;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
@@ -3302,7 +3727,7 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JTable jTable_cliente;
     private javax.swing.JTable jTable_conductor;
     private javax.swing.JTable jTable_traileta;
-    private javax.swing.JTable jTable_vehivculo;
+    private javax.swing.JTable jTable_vehiculo;
     private javax.swing.JDialog jd_Cliente;
     private javax.swing.JDialog jd_Conductor;
     private javax.swing.JDialog jd_Producto;
@@ -3334,6 +3759,7 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JTextField tf_editar_proveedor_nombre;
     private javax.swing.JTextField tf_editar_proveedor_pais;
     private javax.swing.JFormattedTextField tf_editar_proveedor_telefono;
+    private javax.swing.JTextField tf_editar_vehiculo_color;
     private javax.swing.JTextField tf_editar_vehiculo_localizador;
     private javax.swing.JTextField tf_editar_vehiculo_marca;
     private javax.swing.JTextField tf_editar_vehiculo_modelo;
@@ -3357,6 +3783,7 @@ public class frame extends javax.swing.JFrame {
     private javax.swing.JTextField tf_nuevo_proveedor_nombre;
     private javax.swing.JTextField tf_nuevo_proveedor_pais;
     private javax.swing.JFormattedTextField tf_nuevo_proveedor_telefono;
+    private javax.swing.JTextField tf_nuevo_traileta_placa;
     private javax.swing.JTextField tf_nuevo_vehiculo_color;
     private javax.swing.JTextField tf_nuevo_vehiculo_localizador;
     private javax.swing.JTextField tf_nuevo_vehiculo_marca;
